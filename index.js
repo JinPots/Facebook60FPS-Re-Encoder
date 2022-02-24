@@ -73,13 +73,17 @@ function installFfmpeg() {
     exec('ffmpeg -version', (error, stdout, stderr) => {
         if (error) {
             console.log('ffmpeg not found');
-            exec('npm install -g ffmpeg', (error, stdout, stderr) => {
+            // install ffmpeg with npm package
+            exec('npm install ffmpeg-static', (error, stdout, stderr) => {
                 if (error) {
                     console.log('ffmpeg not installed');
-                } else {
+                }
+                else {
                     console.log('ffmpeg installed');
+                    
                 }
             });
+
         } else {
             console.log('ffmpeg found');
         }

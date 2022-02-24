@@ -2,6 +2,7 @@ const { shell } = require('electron');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec)
 const fs = require('fs');
+const ffmpeg = require('ffmpeg-static')
 
 module.exports.startRender = async function (arg, event, win) {
     // event.preventDefault() // stop the form from submitting
@@ -59,7 +60,7 @@ module.exports.startRender = async function (arg, event, win) {
     let currentTime = process.hrtime()
     console.log('ffmpeg ' + args.join(' '));
     let ffmpegProcess
-    ffmpegProcess = await exec('ffmpeg ' + args.join(' '), (error, stdout, stderr) => {
+    ffmpegProcess = await exec(`${ffmpeg} ` + args.join(' '), (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error}`);
         }
@@ -70,7 +71,6 @@ module.exports.startRender = async function (arg, event, win) {
         // Open folder with the video selected
         shell.openPath(output);
         // Flash the app 
-        win.flashFrame(true);
-    });
+        win.flashFrame(true= require('ffmpeg-static')
 
 }
