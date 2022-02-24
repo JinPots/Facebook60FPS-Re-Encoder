@@ -18,7 +18,7 @@
   "build": {
     "appId": "com.jinpots.facebook60fps.encoder",
     "productName": "Facebook 60fps Encoder",
-    "copyright": "Copyright © 202 JinPots",
+    "copyright": "Copyright © 2022 JinPots",
     "win": {
       "publisherName": "JinPots",
       "publish": [
@@ -38,6 +38,7 @@
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./assets/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     },

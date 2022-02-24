@@ -45,17 +45,12 @@ module.exports.startRender = async function (arg, event, win) {
     // Replace video if exists
     // Output file with name of input file ended with _60fps.mp4
     let output
-    // Check folder "Videos in working directory" if exists
-    // If not, create folder
-    if (fs.existsSync('./Videos')) {
+    // Output to Videos folder from Users folder
+    output = `${process.env.USERPROFILE}\\Videos\\`
 
-    } else {
-        fs.mkdirSync('./Videos');
-    }
 
-    output = `${process.cwd()}\\Videos\\${fileName}`
     
-    args.push(output);
+    args.push(output + fileName.split(/ +/).join('\\ ') + '_60fps.mp4');
     args.push('-y');
     let currentTime = process.hrtime()
     console.log(args.join(' '));
@@ -69,7 +64,7 @@ module.exports.startRender = async function (arg, event, win) {
         let eplasedTime = process.hrtime(currentTime)
         win.webContents.send('render-finish', (output, eplasedTime));
         // Open folder with the video selected
-        shell.openPath(process.cwd() + '\\Videos');
+        shell.openPath(output);
         // Flash the app 
         win.flashFrame(true);
     });
