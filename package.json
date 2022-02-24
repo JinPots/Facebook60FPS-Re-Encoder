@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "build_setup": "electron-builder -w",
-    "build_linux": "electron-builder -w portable"
+    "build_port": "electron-builder -w portable"
   },
   "keywords": [],
   "author": "",
