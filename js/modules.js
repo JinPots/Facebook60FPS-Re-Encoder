@@ -71,6 +71,6 @@ module.exports.startRender = async function (arg, event, win) {
         // Open folder with the video selected
         shell.openPath(output);
         // Flash the app 
-        win.flashFrame(true= require('ffmpeg-static')
-
+        win.flashFrame(true)
+    })
 }
