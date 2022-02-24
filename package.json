@@ -1,6 +1,6 @@
 {
   "name": "facebook60fps",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,11 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "electron-updater": "^4.6.5",
-    "ffmpeg": "^0.0.4",
     "ffmpeg-static": "^4.4.1",
     "fs": "^0.0.1-security",
-    "node": "^17.4.0",
-    "npm": "^8.5.1",
     "path": "^0.12.7",
     "url": "^0.11.0"
   },
