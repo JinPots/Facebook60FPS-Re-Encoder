@@ -25,35 +25,39 @@ module.exports.startRender = async function (arg, event, win) {
         args.push('-c:v', 'h264_amf');
     }
     // Resolution and remove "p" from the end of the string
-    args.push('-vf', `scale=-1:${arg.resolution.split(/ +/).join('')}`);
-    args.push('-b:a', '128k');
-    args.push('-q', '28');
-    args.push('-rc-lookahead', '13');
+    if (arg.resolution === '720') {
+        args.push('-qp', '28');
+    } else {
+        args.push('-qp', '36');
+    }
+
     // Preset from data
     args.push('-preset', arg.preset);
     // Audio format from data
     args.push('-c:a', arg.audio);
     // Lowercase pixel format from data and push
-    args.push('-pix_fmt', arg.pixel.toLowerCase());
 
 
     // add K after last number for bitrate
-    let bitrate = arg.bitrate + 'K';
+    let bitrate = (arg.bitrate / 1000).toFixed(1) + 'M';
     args.push('-b:v', bitrate);
+    args.push('-pix_fmt', arg.pixel.toLowerCase());
     // Force 60fps
-    args.push('-r', '60');
+    // args.push('-r', '60');
     // Replace video if exists
     // Output file with name of input file ended with _60fps.mp4
     let output
     // Output to Videos folder from Users folder
     output = `${process.env.USERPROFILE}\\Videos\\`
 
+    args.push('-rc-lookahead', '14');
 
+    args.push('-vf', `scale=-1:${arg.resolution.split(/ +/).join('')}`);
     
     args.push(output + fileName.split(/ +/).join('\\ ') + '_60fps.mp4');
     args.push('-y');
     let currentTime = process.hrtime()
-    console.log(args.join(' '));
+    console.log('ffmpeg ' + args.join(' '));
     let ffmpegProcess
     ffmpegProcess = await exec('ffmpeg ' + args.join(' '), (error, stdout, stderr) => {
         if (error) {
