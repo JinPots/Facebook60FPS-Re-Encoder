@@ -1,0 +1,55 @@
+{
+  "name": "facebook60fps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron-updater": "^4.6.5",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
+  },
+  "build": {
+    "appId": "com.jinpots.facebook60fps.encoder",
+    "productName": "Facebook 60fps Encoder",
+    "copyright": "Copyright © 202 JinPots",
+    "win": {
+      "publisherName": "JinPots",
+      "publish": [
+        "github"
+      ],
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "tar.gz"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "jinpots",
+        "repo": "facebook60fps",
+        "vPrefixedTagName": true,
+        "private": false,
+        "releaseType": "prerelease"
+      }
+    ]
+  }
+}

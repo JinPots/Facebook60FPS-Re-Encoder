@@ -1,0 +1,36 @@
+/* Let the background be light blue mixed with white */
+body {
+    background-color: #e6e6e6;
+    color: #000000;
+}
+
+/* Fonts */
+body, td, th, h1, h2 {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 1em;
+}
+
+/* Bigger buttons and text */
+input.button {
+    font-size: 1.1em;
+    padding: 1px;
+}
+
+/* Rounded buttons */
+input.button {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/* Bigger text */
+input.button {
+    font-size: 1.1em;
+}
+
+/* Put everything in the middle */
+.center {
+    margin: 5.5em auto;
+    width: 800px;
+    text-align: center;
+}
