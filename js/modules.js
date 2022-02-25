@@ -11,7 +11,7 @@ let ffmpeg = ffmpegPath
 module.exports.startRender = async function (arg, event, win, dev) {
     // event.preventDefault() // stop the form from submitting
     if (dev == false) {
-        ffmpeg = path.join(app.getAppPath(), ffmpegPath).replace('app.asar', 'app.asar.unpacked')
+        ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked')
     }
     // start render
     // let args = []
