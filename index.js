@@ -127,5 +127,5 @@ ipcMain.on("toMain", (event, args) => {
 
 ipcMain.on('render', async (event, args) => {
     const { startRender } = require('./js/modules');
-    await startRender(args, event, win);   
+    await startRender(args, event, win, dev);   
 });

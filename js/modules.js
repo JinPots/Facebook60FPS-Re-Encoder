@@ -2,11 +2,17 @@ const { shell } = require('electron');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec)
 const fs = require('fs');
-const ffmpeg = require('ffmpeg-static')
+const { spawn } = require('child_process');
+const path = require('path');
+// let ffmpeg
+const ffmpegPath = require('ffmpeg-static')
+let ffmpeg = ffmpegPath
 
-module.exports.startRender = async function (arg, event, win) {
+module.exports.startRender = async function (arg, event, win, dev) {
     // event.preventDefault() // stop the form from submitting
-
+    if (dev == false) {
+        ffmpeg = path.join(app.getAppPath(), ffmpegPath).replace('app.asar', 'app.asar.unpacked')
+    }
     // start render
     // let args = []
     let args = []
@@ -58,13 +64,18 @@ module.exports.startRender = async function (arg, event, win) {
     args.push(output + fileName.split(/ +/).join('\\ ') + '_60fps.mp4');
     args.push('-y');
     let currentTime = process.hrtime()
-    console.log('ffmpeg ' + args.join(' '));
+    console.log(ffmpeg + args.join(' '));
     let ffmpegProcess
-    ffmpegProcess = await exec(`${ffmpeg} ` + args.join(' '), (error, stdout, stderr) => {
+    ffmpegProcess = spawn(ffmpeg, args)
+    ffmpegProcess.stdout.setEncoding('utf8');
+    ffmpegProcess.stderr.setEncoding('utf8');
+    ffmpegProcess.stdout.on(`data`, (data) => {
+        console.log(data);
+        });
+    ffmpegProcess.stdout.on(`close`, (data, error) => {
         if (error) {
             console.error(`exec error: ${error}`);
         }
-        console.log(`stdout: \n${stdout}`);
         // Finish render
         let eplasedTime = process.hrtime(currentTime)
         win.webContents.send('render-finish', (output, eplasedTime));
