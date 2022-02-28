@@ -8,6 +8,7 @@
     <title>Facebook 60FPS Re-encoder</title>
     <!-- Add path to local css -->
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/button.css">
     <!-- Import script -->
     <script src="../js/script.js"></script>
 
@@ -32,88 +33,99 @@
     </script>
 
     <!-- The main app -->
-    <div id="app" class="center">
+    <div id="app" class="a">
+        <!-- <div class="lol">
+            <form onsubmit="openVideosFolder(event)">
+                <input type="submit" class="btn btn-primary" value="Open videos folder">
+            </form>
+            <a href="https://kanpots.ga/support" target="_blank">
+                <img src="../assets/discord.png" id="logo"  alt="Support server!" > </a>
+        </div> -->
         <!-- Use form to submit data -->
         <form onsubmit="startRender(event)" name="ipcForm">
-
-            <input type="file" class="fileSelect" accept="video/*" capture="camera" required>
-            <label for="file-select">Select video file</label>
-            <!-- Bitrate settings -->
-            <div class="bitrate-settings">
-                <label for="bitrate">Bitrate</label>
-                <!-- Bitrate has to be under 1700 -->
-                <input type="number" id="bitrate" min="0" max="1600" value="1500">
+            <div id="box1">
+                <input type="file" class="fileSelect" accept="video/*" capture="camera" required>
+                <label for="file-select">Select video file</label>
             </div>
-            <!-- Choose what to render with (CPU, Nvidia GPU, AMD) -->
-            <div class="render-settings">
-                <label for="render">Render with</label>
-                <select id="encoder">
-                    <option value="cpu">CPU</option>
-                    <option value="nvidia">Nvidia GPU</option>
-                    <option value="amd">AMD GPU</option>
-                    <option value="intel">Intel GPU</option>
-                </select>
+            <!-- Line -->
+            <div id="line"></div>
+            <div id="box2">
+                <!-- Bitrate settings -->
+                <div class="bitrate-settings">
+                    <label for="bitrate">Bitrate</label>
+                    <!-- Bitrate has to be under 1700 -->
+                    <input type="number" id="bitrate" min="0" max="1600" value="1500">
+                </div>
+                <!-- Choose what to render with (CPU, Nvidia GPU, AMD) -->
+                <div class="render-settings">
+                    <label for="render">Render with</label>
+                    <select id="encoder">
+                        <option value="cpu">CPU</option>
+                        <option value="nvidia">Nvidia GPU</option>
+                        <option value="amd">AMD GPU</option>
+                        <option value="intel">Intel GPU</option>
+                    </select>
+                </div>
+                <!-- Manual render preset, default: slow -->
+                <div class="render-settings">
+                    Preset <input type="text" id="preset" value="slow"><br>
+                    Profile <input type="text" id="profile" value="high">
+                </div>
+                <!-- Audio settings -->
+                <div class="audio-settings">
+                    <label for="audio">Audio</label>
+                    <select id="audio">
+                        <option value="aac">AAC</option>
+                        <option value="mp3">MP3</option>
+                        <option value="opus">Opus</option>
+                    </select>
+                </div>
+                <!-- Resolution, only 720p and 1080p -->
+                <div class="resolution-settings">
+                    <label for="resolution">Resolution</label>
+                    <select id="resolution">
+                        <option value="720">720p</option>
+                        <option value="1080">1080p</option>
+                    </select>
+                </div>
+                <!-- Pixel formats -->
+                <div class="pixel-settings">
+                    <label for="pixel">Pixel format</label>
+                    <select id="pixel">
+                        <option value="yuv420p">YUV420P</option>
+                        <option value="yuv420p10le">YUV420P10LE</option>
+                        <option value="yuv420p12le">YUV420P12LE</option>
+                        <option value="yuv420p16le">YUV420P16LE</option>
+                        <option value="yuv422p">YUV422P</option>
+                        <option value="yuv422p10le">YUV422P10LE</option>
+                        <option value="yuv422p12le">YUV422P12LE</option>
+                        <option value="yuv422p16le">YUV422P16LE</option>
+                        <option value="yuv444p">YUV444P</option>
+                        <option value="yuv444p10le">YUV444P10LE</option>
+                        <option value="yuv444p12le">YUV444P12LE</option>
+                        <option value="yuv444p16le">YUV444P16LE</option>
+                        <option value="yuv420p9be">YUV420P9BE</option>
+                        <option value="yuv420p9le">YUV420P9LE</option>
+                        <option value="yuv420p10be">YUV420P10BE</option>
+                        <option value="yuv420p10le">YUV420P10LE</option>
+                        <option value="yuv420p16be">YUV420P16BE</option>
+                        <option value="yuv420p16le">YUV420P16LE</option>
+                        <option value="yuv422p9be">YUV422P9BE</option>
+                        <option value="yuv422p9le">YUV422P9LE</option>
+                        <option value="yuv422p10be">YUV422P10BE</option>
+                        <option value="yuv422p10le">YUV422P10LE</option>
+                        <option value="yuv422p16be">YUV422P16BE</option>
+                        <option value="yuv422p16le">YUV422P16LE</option>
+                        <option value="yuv444p9be">YUV444P9BE</option>
+                    </select>
+                </div>
             </div>
-            <!-- Manual render preset, default: slow -->
-            <div class="render-settings">
-                Preset <input type="text" id="preset" value="slow">
-                Profile <input type="text" id="profile" value="high">
-            </div>
-            <!-- Audio settings -->
-            <div class="audio-settings">
-                <label for="audio">Audio</label>
-                <select id="audio">
-                    <option value="aac">AAC</option>
-                    <option value="mp3">MP3</option>
-                    <option value="opus">Opus</option>
-                </select>
-            </div>
-            <!-- Resolution, only 720p and 1080p -->
-            <div class="resolution-settings">
-                <label for="resolution">Resolution</label>
-                <select id="resolution">
-                    <option value="720">720p</option>
-                    <option value="1080">1080p</option>
-                </select>
-            </div>
-            <!-- Pixel formats -->
-            <div class="pixel-settings">
-                <label for="pixel">Pixel format</label>
-                <select id="pixel">
-                    <option value="yuv420p">YUV420P</option>
-                    <option value="yuv420p10le">YUV420P10LE</option>
-                    <option value="yuv420p12le">YUV420P12LE</option>
-                    <option value="yuv420p16le">YUV420P16LE</option>
-                    <option value="yuv422p">YUV422P</option>
-                    <option value="yuv422p10le">YUV422P10LE</option>
-                    <option value="yuv422p12le">YUV422P12LE</option>
-                    <option value="yuv422p16le">YUV422P16LE</option>
-                    <option value="yuv444p">YUV444P</option>
-                    <option value="yuv444p10le">YUV444P10LE</option>
-                    <option value="yuv444p12le">YUV444P12LE</option>
-                    <option value="yuv444p16le">YUV444P16LE</option>
-                    <option value="yuv420p9be">YUV420P9BE</option>
-                    <option value="yuv420p9le">YUV420P9LE</option>
-                    <option value="yuv420p10be">YUV420P10BE</option>
-                    <option value="yuv420p10le">YUV420P10LE</option>
-                    <option value="yuv420p16be">YUV420P16BE</option>
-                    <option value="yuv420p16le">YUV420P16LE</option>
-                    <option value="yuv422p9be">YUV422P9BE</option>
-                    <option value="yuv422p9le">YUV422P9LE</option>
-                    <option value="yuv422p10be">YUV422P10BE</option>
-                    <option value="yuv422p10le">YUV422P10LE</option>
-                    <option value="yuv422p16be">YUV422P16BE</option>
-                    <option value="yuv422p16le">YUV422P16LE</option>
-                    <option value="yuv444p9be">YUV444P9BE</option>
-                </select>
-            </div>
-
             <br><br><br>
             <!-- Submit button and send data to script -->
-            <input type="submit" value="Submit">
-
+            <div id="submit">
+                <input type="submit" value="Submit" class="button">
+            </div>
         </form>
-
         <div id="progress">
         </div>
 </body>

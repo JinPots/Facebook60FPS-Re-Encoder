@@ -5,7 +5,8 @@ const url = require('url');
 global.shell = shell;
 global.app = app;
 
-// const { autoUpdater } = require('electron-updater');
+const { autoUpdater } = require('electron-updater');
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -38,13 +39,19 @@ if (dev) {
 function createWindow() {
     // Create the browser window and maximize
     win = new BrowserWindow({
-        width: 900,
+        width: 1100,
         height: 600,
         webPreferences: {
             // Preload script
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true
-        }
+        },
+        frame: false,
+        transparent: true,
+        fullscreen: false,
+        fullscreenable: false,
+        maximizable: false,
+        resizable: false
     });
     // Maximize window
     // win.maximize();
@@ -54,7 +61,7 @@ function createWindow() {
 
     // Open the DevTools.
     if (dev) {
-        win.webContents.openDevTools();
+        // win.webContents.openDevTools();
     }
 
     // Emitted when the window is closed.
@@ -68,35 +75,50 @@ function createWindow() {
 
 // Check if ffmpeg is installed
 // if not then install
-function installFfmpeg() {
+function checkFFmpeg() {
     const { exec } = require('child_process');
+    const ffmpegPath = require('ffmpeg-static')
     exec('ffmpeg -version', (error, stdout, stderr) => {
         if (error) {
-            console.log('ffmpeg not found');
-            // install ffmpeg with npm package
-            exec('npm install ffmpeg-static', (error, stdout, stderr) => {
-                if (error) {
-                    console.log('ffmpeg not installed');
-                }
-                else {
-                    console.log('ffmpeg installed');
-                    
-                }
-            });
-
+            console.log('FFmpeg not found');
+            if (dev == false) {            
+                global.ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked')
+            } else {
+                global.ffmpeg = ffmpegPath
+            }
         } else {
-            console.log('ffmpeg found');
+            console.log('FFmpeg found');
+            global.ffmpeg = `ffmpeg `
         }
     });
 }
 
+function checkFFprobe() {
+    const { exec } = require('child_process');
+    const ffprobePath = require('ffprobe-static')
+    exec('ffprobe -version', (error, stdout, stderr) => {
+        if (error) {
+            console.log('FFprobe not found');
+
+            if (dev == false) {
+                global.ffmpeg = ffprobePath.replace('app.asar', 'app.asar.unpacked')
+            } else {
+                global.ffmpeg = ffprobePath
+            }
+        } else {
+            console.log('FFprobe found');
+            global.ffmpeg = `ffprobe `
+        }
+    });
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
     // Check if ffmpeg is installed
-    installFfmpeg();
+    checkFFmpeg();
+    checkFFprobe();
     createWindow()
 })
 
@@ -127,5 +149,9 @@ ipcMain.on("toMain", (event, args) => {
 
 ipcMain.on('render', async (event, args) => {
     const { startRender } = require('./js/modules');
-    await startRender(args, event, win, dev);   
+    await startRender(args, event, win, dev);
 });
+
+ipcMain.on('openVideosFolder', () => {
+    shell.openPath(`${process.env.USERPROFILE}\\Videos\\`);
+})

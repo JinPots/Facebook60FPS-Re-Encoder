@@ -4,18 +4,17 @@ const exec = util.promisify(require('child_process').exec)
 const fs = require('fs');
 const { spawn } = require('child_process');
 const path = require('path');
-// let ffmpeg
-const ffmpegPath = require('ffmpeg-static')
-let ffmpeg = ffmpegPath
+const fluent = require('fluent-ffmpeg');
+let ffprobe = global.ffprobe
+let ffmpeg = global.ffmpeg
 
 module.exports.startRender = async function (arg, event, win, dev) {
     // event.preventDefault() // stop the form from submitting
-    if (dev == false) {
-        ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked')
-    }
     // start render
-    // let args = []
     let args = []
+
+    fluent.setFfprobePath(ffprobe)
+    fluent.setFfmpegPath(ffmpeg)
 
     let fileSelect = arg.fileSelect
     let fileName = arg.fileSelect_name
@@ -31,11 +30,10 @@ module.exports.startRender = async function (arg, event, win, dev) {
     } else if (arg.encoder === 'AMD') {
         args.push('-c:v', 'h264_amf');
     }
-    // Resolution and remove "p" from the end of the string
     if (arg.resolution === '720') {
-        args.push('-qp', '28');
-    } else {
-        args.push('-qp', '36');
+        args.push('-qp', '30');
+    } else if (arg.resolution === '1080' ) {
+        args.push('-qp', '40');
     }
 
     // Preset from data

@@ -1,31 +1,54 @@
-/* Let the background be light blue mixed with white */
-body {
-    background-color: #e6e6e6;
-    color: #000000;
+#box1 {
+    border-radius: 50px;
+    background: #00fadd;
+    box-shadow: 41px 41px 82px #00d5bc,
+        -41px -41px 82px #00fffe;
+    /* Let box1's position on the left */
+    position: absolute;
+    left: 1em;
+    margin: 2.2em auto;
+    padding: 2em;
+    width: 30em;
+    text-align: left;
+
 }
 
-/* Fonts */
-body, td, th, h1, h2 {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    font-size: 1em;
+#box2 {
+    border-radius: 50px;
+    background: #00fadd;
+    box-shadow: 41px 41px 82px #00d5bc,
+        -41px -41px 82px #00fffe;
+    position: absolute;
+    right: 1em;
+    margin: 2.2em auto;
+    padding: 2em;
+    width: 30em;
+    text-align: right;
 }
 
-/* Bigger buttons and text */
-input.button {
-    font-size: 1.1em;
-    padding: 1px;
-}
-
-/* Rounded buttons */
-input.button {
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+#submit {   
+    position: absolute;
+    margin: 27.5em auto;
+    padding-left: 32em;
+    text-align: center;
 }
 
 /* Bigger text */
 input.button {
     font-size: 1.1em;
+}
+
+#logo {
+    /* Make it smaller */
+    width: 73.1px;
+    height: 54.05px;
+}
+
+/* Put discord logo at the top right corner */
+#logo {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
 }
 
 /* Put everything in the middle */

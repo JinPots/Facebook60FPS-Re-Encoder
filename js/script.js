@@ -35,3 +35,11 @@ function startRender(event) {
     });
 }
 
+function openVideosFolder() {
+    window.api.send("openVideosFolder", null);
+}
+
+// Get button element with id 'openFolder'
+// const openFolderBtn = document.getElementById('openFolder');
+// Add event listener to openFolderBtn
+// openFolderBtn.addEventListener('click', openVideosFolder); 
