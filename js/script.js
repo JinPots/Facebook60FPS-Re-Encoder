@@ -1,4 +1,3 @@
-
 function startRender(event) {
     event.preventDefault() // stop the form from submitting
     const formData = {};
@@ -16,11 +15,9 @@ function startRender(event) {
     }
     
     const progress = document.getElementById('progress');
-    // let progress is rendering when this function is started
+
     progress.style.display = 'block';
-    // Add a spining icon
     progress.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Rendering...';
-    // Set progress color to black
     progress.style.color = 'black';
 
     // send formData to main process and start render
@@ -30,7 +27,6 @@ function startRender(event) {
     window.api.receive("render-finish", (event, output, eplasedTime) => {
         console.log(eplasedTime);
         progress.innerText = `Render finished`;
-        // style the progress text
         progress.style.color = '#00ff00';
     });
 }
@@ -38,3 +34,14 @@ function startRender(event) {
 function openVideosFolder() {
     window.api.send("openVideosFolder", null);
 }
+
+let file = document.querySelector('#file-select > input');
+
+document.querySelector("#submit").addEventListener('click', () => {
+    if (file.files.length <= 0) {
+        document.querySelector("#file-select > div > p").classList.add('shake');
+        setTimeout(() => {
+            document.querySelector("#file-select > div > p").classList.remove('shake');
+        }, 550);
+    }
+});
