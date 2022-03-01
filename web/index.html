@@ -6,32 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facebook 60FPS Re-encoder</title>
-    <!-- Add path to local css -->
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/button.css">
-    <!-- Import script -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../js/script.js"></script>
 
     <!-- Import progress bar from boostrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
 
 </head>
 
 <body>
-
-    <script>
-        window.api.loadscript("./js/script.js");
-        window.api.loadscript("./js/modules.js");
-        console.log("Loaded scripts");
-    </script>
-
     <!-- The main app -->
     <div id="app" class="a">
         <!-- <div class="lol">
@@ -43,14 +35,16 @@
         </div> -->
         <!-- Use form to submit data -->
         <form onsubmit="startRender(event)" name="ipcForm">
-            <div id="box1">
-                <input type="file" class="fileSelect"  accept="video/*" capture="camera" required> <br> <br>
-                <!-- Image -->
-                <img src="../assets/superidol.jpg" id="superidol" alt="Super Idol" width="240" height="240">
+            <div id="file-select">
+                <input type="file" class="fileSelect" accept="video/*" capture="camera" required>
+                <div>
+                    <p>Click to add video</p>
+                    <i class="fa fa-plus-circle fa-5x"></i>
+                </div>
             </div>
             <!-- Line -->
             <div id="line"></div>
-            <div id="box2">
+            <div id="encode-options">
                 <!-- Bitrate settings -->
                 <div class="bitrate-settings">
                     <label for="bitrate">Bitrate</label>
@@ -68,9 +62,13 @@
                     </select>
                 </div>
                 <!-- Manual render preset, default: slow -->
-                <div class="render-settings">
-                    Preset <input type="text" id="preset" value="slow"><br>
-                    Profile <input type="text" id="profile" value="high">
+                <div class="render-preset">
+                    <label for="preset">Preset</label>
+                    <input type="text" id="preset" value="slow"><br>
+                </div>
+                <div id="render-profile">
+                    <label for="profile">Profile</label>
+                    <input type="text" id="profile" value="high">
                 </div>
                 <!-- Audio settings -->
                 <div class="audio-settings">
@@ -121,14 +119,14 @@
                     </select>
                 </div>
             </div>
-            <br><br><br>
-            <!-- Submit button and send data to script -->
-            <div id="submit">
-                <input type="submit" value="Submit" class="button-style-1">
-                <div id="progress">
-                </div>
-            </div>
+            <button id="submit">START<i class="fa fa-arrow-right"></i></button>
+            <div id="progress"></div>
         </form>
-</body>
+        <script>
+            window.api.loadscript("./js/script.js");
+            window.api.loadscript("./js/modules.js");
+            console.log("Loaded scripts");
+        </script>
+    </body>
 
 </html>
