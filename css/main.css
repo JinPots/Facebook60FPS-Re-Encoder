@@ -1,11 +1,12 @@
+
+
 #box1 {
     border-radius: 50px;
     background: #00fadd;
-    box-shadow: 41px 41px 82px #00d5bc,
-        -41px -41px 82px #00fffe;
     /* Let box1's position on the left */
     position: absolute;
-    left: 1em;
+    left: 3em;
+    top: 2em ;
     margin: 2.2em auto;
     padding: 2em;
     width: 30em;
@@ -16,10 +17,9 @@
 #box2 {
     border-radius: 50px;
     background: #00fadd;
-    box-shadow: 41px 41px 82px #00d5bc,
-        -41px -41px 82px #00fffe;
     position: absolute;
-    right: 1em;
+    right: 3em;
+    top: 2em;
     margin: 2.2em auto;
     padding: 2em;
     width: 30em;
@@ -28,8 +28,9 @@
 
 #submit {   
     position: absolute;
-    margin: 27.5em auto;
-    padding-left: 32em;
+    margin: auto auto;
+    padding-left: 55.3em;
+    padding-top: 20em;
     text-align: center;
 }
 
@@ -56,4 +57,14 @@ input.button {
     margin: 5.5em auto;
     width: 800px;
     text-align: center;
+}
+
+input[type=number], input[type=text] {
+    background-color: #00fadd;
+    border-color: #00fadd;
+}
+
+#bitrate, #preset, #profile, input[type=number] {
+    width: 5em;
+    margin: 0 auto;
 }

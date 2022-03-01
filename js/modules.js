@@ -17,24 +17,22 @@ module.exports.startRender = async function (arg, event, win, dev) {
     fluent.setFfmpegPath(ffmpeg)
 
     let fileSelect = arg.fileSelect
-    let fileName = arg.fileSelect_name
-    
+    let fileName = arg.fileSelect_name.split('.')[0]
+
     args.push('-i', `${fileSelect.split(/ +/).join('\\ ')}`);
     // If encoder is CPU use libx264, Nvidia GPU use nvenc, Intel GPU use qsv, AMD GPU use amd
-    if (arg.encoder === 'CPU') {
+    if (arg.encoder === 'cpu') {
         args.push('-c:v', 'libx264');
-    } else if (arg.encoder === 'Nvidia') {
+    } else if (arg.encoder === 'nvidia') {
         args.push('-c:v', 'h264_nvenc');
-    } else if (arg.encoder === 'Intel') {
+    } else if (arg.encoder === 'intel') {
         args.push('-c:v', 'h264_qsv');
-    } else if (arg.encoder === 'AMD') {
+    } else if (arg.encoder === 'amd') {
         args.push('-c:v', 'h264_amf');
     }
-    if (arg.resolution === '720') {
-        args.push('-qp', '30');
-    } else if (arg.resolution === '1080' ) {
-        args.push('-qp', '40');
-    }
+    args.push('-qp', '29');
+    // add crf
+    args.push('-crf', '15');
 
     // Preset from data
     args.push('-preset', arg.preset);
@@ -55,10 +53,10 @@ module.exports.startRender = async function (arg, event, win, dev) {
     // Output to Videos folder from Users folder
     output = `${process.env.USERPROFILE}\\Videos\\`
 
-    args.push('-rc-lookahead', '14');
+    args.push('-rc-lookahead', '15');
 
     args.push('-vf', `scale=-1:${arg.resolution.split(/ +/).join('')}`);
-    
+
     args.push(output + fileName.split(/ +/).join('\\ ') + '_60fps.mp4');
     args.push('-y');
     let currentTime = process.hrtime()
@@ -69,7 +67,7 @@ module.exports.startRender = async function (arg, event, win, dev) {
     ffmpegProcess.stderr.setEncoding('utf8');
     ffmpegProcess.stdout.on(`data`, (data) => {
         console.log(data);
-        });
+    });
     ffmpegProcess.stdout.on(`close`, (data, error) => {
         if (error) {
             console.error(`exec error: ${error}`);

@@ -25,6 +25,7 @@
     "productName": "Facebook 60fps Encoder",
     "copyright": "Copyright © 2022 JinPots",
     "win": {
+      "icon": "./assets/icon.ico",
       "publisherName": "JinPots",
       "publish": [
         "github"

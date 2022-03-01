@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facebook 60FPS Re-encoder</title>
     <!-- Add path to local css -->
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/button.css">
     <!-- Import script -->
     <script src="../js/script.js"></script>
@@ -44,8 +44,9 @@
         <!-- Use form to submit data -->
         <form onsubmit="startRender(event)" name="ipcForm">
             <div id="box1">
-                <input type="file" class="fileSelect" accept="video/*" capture="camera" required>
-                <label for="file-select">Select video file</label>
+                <input type="file" class="fileSelect"  accept="video/*" capture="camera" required> <br> <br>
+                <!-- Image -->
+                <img src="../assets/superidol.jpg" id="superidol" alt="Super Idol" width="240" height="240">
             </div>
             <!-- Line -->
             <div id="line"></div>
@@ -123,11 +124,11 @@
             <br><br><br>
             <!-- Submit button and send data to script -->
             <div id="submit">
-                <input type="submit" value="Submit" class="button">
+                <input type="submit" value="Submit" class="button-style-1">
+                <div id="progress">
+                </div>
             </div>
         </form>
-        <div id="progress">
-        </div>
 </body>
 
 </html>

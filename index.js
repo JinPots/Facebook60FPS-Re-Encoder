@@ -5,6 +5,10 @@ const url = require('url');
 global.shell = shell;
 global.app = app;
 
+const ffmpegPath = require('ffmpeg-static')
+const ffprobePath = require('ffprobe-static').path
+global.ffmpeg = ffprobePath.replace('app.asar', 'app.asar.unpacked') + ' '
+global.ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked') + ' '
 const { autoUpdater } = require('electron-updater');
 
 
@@ -39,22 +43,19 @@ if (dev) {
 function createWindow() {
     // Create the browser window and maximize
     win = new BrowserWindow({
-        width: 1100,
-        height: 600,
+        width: 1200,
+        height: 700,
         webPreferences: {
             // Preload script
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true
         },
-        frame: false,
-        transparent: true,
         fullscreen: false,
         fullscreenable: false,
         maximizable: false,
         resizable: false
     });
-    // Maximize window
-    // win.maximize();
+    win.removeMenu()
 
     // and load the index.html of the app.
     win.loadFile('web/index.html')
@@ -93,9 +94,10 @@ function checkFFmpeg() {
     });
 }
 
+
 function checkFFprobe() {
     const { exec } = require('child_process');
-    const ffprobePath = require('ffprobe-static')
+    const ffprobePath = require('ffprobe-static').path
     exec('ffprobe -version', (error, stdout, stderr) => {
         if (error) {
             console.log('FFprobe not found');
@@ -107,7 +109,7 @@ function checkFFprobe() {
             }
         } else {
             console.log('FFprobe found');
-            global.ffmpeg = `ffprobe `
+            global.ffprobe = `ffprobe `
         }
     });
 }
@@ -117,8 +119,8 @@ function checkFFprobe() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
     // Check if ffmpeg is installed
-    checkFFmpeg();
-    checkFFprobe();
+    // checkFFmpeg();
+    // checkFFprobe();
     createWindow()
 })
 
