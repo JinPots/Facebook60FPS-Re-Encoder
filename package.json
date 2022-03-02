@@ -1,6 +1,6 @@
 {
   "name": "facebook60fps",
-  "version": "0.1.6",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,13 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron-updater": "^4.6.5",
+    "electron-store": "^8.0.1",
     "ffmpeg-static": "^4.4.1",
-    "ffprobe-static": "^3.0.0",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "^0.0.1-security",
-    "path": "^0.12.7",
-    "url": "^0.11.0"
+    "path": "^0.12.7"
   },
   "build": {
     "appId": "com.jinpots.facebook60fps.encoder",

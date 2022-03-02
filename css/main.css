@@ -8,6 +8,14 @@
     height: 100vh;
 }
 
+#darkmode {
+    position: absolute;
+    right: 45vw;
+    outline: none;
+    border: 0;
+    bottom: 2vw;
+}
+
 #file-select > div {
     position: absolute;
     display: flex;
@@ -89,7 +97,7 @@
 /* Put everything in the middle */
 .center {
     margin: 5.5em auto;
-    width: 800px;
+    width: 900px;
     text-align: center;
 }
 
@@ -99,7 +107,6 @@
     margin: 0 auto;
 }
 
-/* Make changes if needed */
 @media (prefers-color-scheme: dark) {
     html {
         filter: invert(100%);

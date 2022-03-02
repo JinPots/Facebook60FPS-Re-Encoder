@@ -24,8 +24,7 @@ function startRender(event) {
     window.api.send("render", formData);
 
     // recieve message when render is finished and open the folder
-    window.api.receive("render-finish", (event, output, eplasedTime) => {
-        console.log(eplasedTime);
+    window.api.receive("render-finish", (event) => {
         progress.innerText = `Render finished`;
         progress.style.color = '#00ff00';
     });
@@ -45,3 +44,12 @@ document.querySelector("#submit").addEventListener('click', () => {
         }, 550);
     }
 });
+
+function random1() {
+    window.location.href = 'info.html'
+}
+
+window.api.receive('config', (config) => {
+    console.log(config)
+})
+

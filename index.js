@@ -1,15 +1,19 @@
 // setup simple electron app
 const { app, BrowserWindow, ipcMain, shell } = require('electron');
+const Store = require('electron-store')
+
+const store = new Store();
+global.store = store
+
 const path = require('path');
 global.shell = shell;
 global.app = app;
 
-const ffmpegPath = require('ffmpeg-static')
-global.ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked') + ' '
-//const ffprobePath = require('ffprobe-static').path
-//global.ffmpeg = ffprobePath.replace('app.asar', 'app.asar.unpacked') + ' '
-// const { autoUpdater } = require('electron-updater');
+let appPath = app.getAppPath()
 
+const ffmpegPath = require('ffmpeg-static');
+const fs = require('fs');
+global.ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked') + ' '
 let win;
 
 // Keep a reference for dev mode
@@ -20,9 +24,19 @@ if (process.defaultApp || /[\\/]electron-prebuilt[\\/]/.test(process.execPath) |
     dev = true;
 }
 
+if (dev == false) {
+    appPath.replace('app.asar', 'app.asar.unpacked')
+}
+
+let savePath = store.get('savePath')
+if (!savePath) {
+    store.set('savePath', `${process.env.USERPROFILE}\\Videos\\`)
+}
+
 function createWindow() {
     win = new BrowserWindow({
         width: 1200,
+        icon: "./assets/icon.ico",
         height: 700,
         webPreferences: {
             // Preload script
@@ -34,7 +48,7 @@ function createWindow() {
         maximizable: false,
         resizable: false
     });
-    win.removeMenu()
+    // win.removeMenu()
     win.loadFile('web/index.html')
 }
 
@@ -77,7 +91,7 @@ function checkFFprobe() {
     });
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
     // Check if ffmpeg is installed
     // checkFFmpeg()
     // checkFFprobe()

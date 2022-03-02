@@ -18,11 +18,40 @@
 }
 
 #submit:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 #submit:active {
+    transform: scale(0.9);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+#info {
+    right: 10vw;
+    bottom: 0;
+    position: fixed;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #2f2f2f;
+    color: white;
+    width: 100px;
+    margin: 30px;
+    padding: 10px;
+    border: 0;
+    border-radius: 50px;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+    cursor: pointer;
+}
+
+#info:hover {
+    transform: scale(1.1);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+#info:active {
     transform: scale(0.9);
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
