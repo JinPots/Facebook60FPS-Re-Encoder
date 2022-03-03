@@ -96,6 +96,13 @@ app.whenReady().then(async () => {
     // checkFFmpeg()
     // checkFFprobe()
     createWindow()
+
+    // Set AppUserModelId
+
+    if (process.platform === "win32") {
+        app.setAppUserModelId("Facebook 60FPS Re-encoder")
+    }
+
 })
 
 ipcMain.on('render', async (event, args) => {
