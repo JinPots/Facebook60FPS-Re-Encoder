@@ -1,8 +1,13 @@
-const { shell, Notification } = require('electron');
+const {
+    shell,
+    Notification
+} = require('electron');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec)
 const fs = require('fs');
-const { spawn } = require('child_process');
+const {
+    spawn
+} = require('child_process');
 const path = require('path');
 const fluent = require('fluent-ffmpeg');
 let ffprobe = global.ffprobe
@@ -57,6 +62,9 @@ module.exports.startRender = async function (arg, event, win, dev) {
         let eplasedTime = (parseFloat(tempTime)).toFixed(2)
         win.webContents.send('render-finish', (eplasedTime));
         shell.openPath(videoOutputPath);
-        new Notification({title: 'Render finished!', body: 'Render time: ' + eplasedTime + "s"}).show();
+        new Notification({
+            title: 'Render finished!',
+            body: 'Render time: ' + eplasedTime + "s"
+        }).show();
     })
 }
