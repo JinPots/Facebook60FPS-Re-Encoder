@@ -17,7 +17,7 @@ function startRender(event) {
     const progress = document.getElementById('progress');
 
     progress.style.display = 'block';
-    progress.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Rendering...';
+    progress.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Rendering...';
     progress.style.color = 'black';
 
     // send formData to main process and start render
