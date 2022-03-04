@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../js/script.js"></script>
 
+
     <!-- Import progress bar from boostrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -34,16 +35,15 @@
                     <i class="fa fa-plus-circle fa-5x"></i>
                 </div>
             </div>
+
             <!-- Line -->
             <div id="line"></div>
             <div id="encode-options">
-                <!-- Bitrate settings -->
                 <div class="bitrate-settings">
                     <label for="bitrate">Bitrate</label>
-                    <!-- Bitrate has to be under 1700 -->
                     <input type="number" id="bitrate" min="0" max="1600" value="1500">
                 </div>
-                <!-- Choose what to render with (CPU, Nvidia GPU, AMD) -->
+                <!-- Choose what to render with (CPU, Nvidia GPU, AMD GPU, Intel GPU) -->
                 <div class="render-settings">
                     <label for="render">Render with</label>
                     <select id="encoder">
@@ -110,14 +110,25 @@
                         <option value="yuv444p9be">YUV444P9BE</option>
                     </select>
                 </div>
-            <div id="progress">Please select a video and click start!</div>
-        </div>
+                <div id="progress">Please select a video and click start!</div>
+            </div>
             <button id="submit">START<i class="fa fa-arrow-right"></i></button>
         </form>
+        <button id="settingsb">SETTINGS<i class="fa fa-gear"></i></button>
+
+        <div id="settings">
+            <input type="text" name="path" id="pathSettings" value="Nothing here but path will be Default but if u already set then it'll be that">
+            <label for="path">Video output path</label> <button id="settingsb1"
+                onclick="selectDirs(event)">Select</button>
+            <p id="p1">For output it's your Videos folder, only select button work for selecting path</p>
+            <div id="infoBox">
+                <p id="p1"> Creator: <a href="https://jinpots.space" target="_blank">JinPots</a> <br> UI Designer: <a href="https://github.com/skyventuree" target="_blank">Skyventure (Sorae)</a> <br> Github: <a href="https://github.com/JinPots/Facebook60FPS-Re-Encoder" target="_blank">Facebook 60FPS Re-encoder</a> <br> Version: <a href="https://github.com/JinPots/Facebook60FPS-Re-Encoder/releases/latest" target="_blank">1.1.0</a> </p>
+            </div> 
+        </div>
         <!-- <button id="info" >INFO<i class="fa fa-info-circle"></i></button> -->
         <script>
-            window.api.loadscript("./js/script.js");
-            window.api.loadscript("./js/modules.js");
+            window.backend.loadscript("./js/modules.js");
+            window.backend.loadscript('./js/script.js')
             console.log("Loaded scripts");
         </script>
 </body>

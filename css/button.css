@@ -27,7 +27,7 @@
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
-#info {
+#settingsb {
     right: 10vw;
     bottom: 0;
     position: fixed;
@@ -46,12 +46,66 @@
     cursor: pointer;
 }
 
-#info:hover {
+#settingsb:hover {
     transform: scale(1.1);
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
-#info:active {
+#settingsb:active {
+    transform: scale(0.9);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+#settingsb1 {
+    position: fixed;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #2f2f2f;
+    color: white;
+    width: 70px;
+    margin: 10px;
+    padding: 10px;
+    border: 0;
+    border-radius: 50px;
+    /* transition: all 0.2s; */
+    outline: none;
+    cursor: pointer;
+}
+
+#settingsb1:hover {
+    transform: scale(1.1);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+#settingsb1:active {
+    transform: scale(0.9);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+#settingsb2 {
+    position: fixed;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #2f2f2f;
+    color: white;
+    width: 70px;
+    margin: 10px;
+    padding: 10px;
+    border: 0;
+    border-radius: 50px;
+    /* transition: all 0.2s; */
+    outline: none;
+    cursor: pointer;
+}
+
+#settingsb2:hover {
+    transform: scale(1.1);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+#settingsb2:active {
     transform: scale(0.9);
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
