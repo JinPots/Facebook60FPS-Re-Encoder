@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder -p always"
+    "build": "electron-builder -p always -w --ia32 --x64 & electron-builder -p always --x64 --ia32 -l tar.gz"
   },
   "keywords": [],
   "author": "",
@@ -37,10 +37,9 @@
       "icon": "./assets/icon.png",
       "target": [
         "AppImage",
-        "deb",
-        "pacman",
-        "apk"
-      ]
+        "tar.gz"
+      ],
+      "publish": ["github"]
     },
     "nsis": {
       "oneClick": false,

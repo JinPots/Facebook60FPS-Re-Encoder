@@ -14,7 +14,6 @@ global.log = log
 
 const store = new Store()
 global.store = store
-log.info(store.path)
 
 global.shell = shell
 global.app = app
@@ -38,7 +37,7 @@ if (dev == false) {
 	appPath.replace('app.asar', 'app.asar.unpacked')
 }
 
-store.get('path', `${process.env.USERPROFILE}\\Videos\\`)
+global.videoOutputPath = store.get('path', `${process.env.USERPROFILE}\\Videos\\`)
 
 
 function createWindow() {

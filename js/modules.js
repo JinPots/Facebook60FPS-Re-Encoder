@@ -9,7 +9,8 @@ const {
 let ffmpeg = global.ffmpeg,
 	ffmpegProcess,
 	win = global.win,
-	log = global.log
+	log = global.log,
+	videoOutputPath = global.videoOutputPath
 
 module.exports.startRender = async function (arg) {
 	let args = []
@@ -36,7 +37,7 @@ module.exports.startRender = async function (arg) {
 	args.push('-pix_fmt', arg.pixel.toLowerCase())
 	args.push('-rc-lookahead', '15')
 	args.push('-vf', `scale=-1:${arg.resolution.split(/ +/).join('')}`)
-	args.push(fileSelect + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+	args.push(videoOutputPath + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
 	args.push('-y')
 	let currentTime = process.hrtime()
 	console.log(ffmpeg + args.join(' '))
@@ -53,7 +54,7 @@ module.exports.startRender = async function (arg) {
 		let tempTime = process.hrtime(currentTime)
 		let eplasedTime = (((tempTime[0] * 1000) + (tempTime[1] / 1000000)) / 1000).toFixed(2)
 		win.webContents.send('render-finish', (eplasedTime))
-		shell.showItemInFolder(fileSelect + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+		shell.showItemInFolder(videoOutputPath + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
 		new Notification({
 			title: 'Render finished!',
 			body: 'Render time: ' + eplasedTime + 's'
