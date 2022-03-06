@@ -1,111 +1,49 @@
-#submit {
-    right: 0;
-    bottom: 0;
+button {
     position: fixed;
     display: inline-flex;
     align-items: center;
     justify-content: space-around;
     background-color: #2f2f2f;
-    color: white;
-    width: 100px;
-    margin: 30px;
-    padding: 10px;
-    border: 0;
     border-radius: 50px;
-    transition: all 0.2s ease-in-out;
+    color: white;
+    border: 0;
     outline: none;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
-#submit:hover {
-    transform: scale(1.1);
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+/* NEED FIX: border-radius got overwritten somewhere so I have to put them in each ID element. */
+
+#submit, #settingsb {
+    width: 100px;
+    bottom: 0;
+    margin: 30px;
+    padding: 10px;
+    border-radius: 50px;
 }
 
-#submit:active {
-    transform: scale(0.9);
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+#submit {
+    right: 0
 }
 
 #settingsb {
     right: 10vw;
-    bottom: 0;
-    position: fixed;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #2f2f2f;
-    color: white;
-    width: 100px;
-    margin: 30px;
-    padding: 10px;
-    border: 0;
-    border-radius: 50px;
-    transition: all 0.2s ease-in-out;
-    outline: none;
-    cursor: pointer;
 }
 
-#settingsb:hover {
-    transform: scale(1.1);
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-}
-
-#settingsb:active {
-    transform: scale(0.9);
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-}
-
-#settingsb1 {
-    position: fixed;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #2f2f2f;
-    color: white;
+#settingsb1, #settingsb2 {
     width: 70px;
     margin: 10px;
     padding: 10px;
-    border: 0;
     border-radius: 50px;
-    /* transition: all 0.2s; */
-    outline: none;
-    cursor: pointer;
 }
 
-#settingsb1:hover {
+
+button:hover {
     transform: scale(1.1);
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
-#settingsb1:active {
-    transform: scale(0.9);
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-}
-
-#settingsb2 {
-    position: fixed;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #2f2f2f;
-    color: white;
-    width: 70px;
-    margin: 10px;
-    padding: 10px;
-    border: 0;
-    border-radius: 50px;
-    /* transition: all 0.2s; */
-    outline: none;
-    cursor: pointer;
-}
-
-#settingsb2:hover {
-    transform: scale(1.1);
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-}
-
-#settingsb2:active {
+button:active {
     transform: scale(0.9);
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
