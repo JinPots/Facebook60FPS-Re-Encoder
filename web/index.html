@@ -29,7 +29,7 @@
     <div id="app" class="a">
         <form onsubmit="startRender(event)" name="ipcForm">
             <div id="file-select">
-                <input type="file" class="fileSelect" accept="video/*" capture="camera" required>
+                <input type="file" class="fileSelect" accept="video/*" capture="camera" onchange="newDispValue()" required>
                 <div>
                     <p>Click to add video</p>
                     <i class="fa fa-plus-circle fa-5x"></i>
@@ -37,7 +37,7 @@
             </div>
 
             <!-- Line -->
-            <div id="line"></div>
+            <div id="vertical-line"></div>
             <div id="encode-options">
                 <div class="bitrate-settings">
                     <label for="bitrate">Bitrate</label>
@@ -115,14 +115,17 @@
             <button id="submit">START<i class="fa fa-arrow-right"></i></button>
         </form>
         <button id="settingsb">SETTINGS<i class="fa fa-gear"></i></button>
-
+        
         <div id="settings">
             <input type="text" name="path" id="pathSettings" value="Nothing here but path will be Default but if u already set then it'll be that">
             <label for="path">Video output path</label> <button id="settingsb1"
                 onclick="selectDirs(event)">Select</button>
-            <p id="p1">For output it's your Videos folder, only select button work for selecting path</p>
-            <div id="infoBox">
-                <p id="p1"> Creator: <a href="https://jinpots.space" target="_blank">JinPots</a> <br> UI Designer: <a href="https://github.com/skyventuree" target="_blank">Skyventure (Sorae)</a> <br> Github: <a href="https://github.com/JinPots/Facebook60FPS-Re-Encoder" target="_blank">Facebook 60FPS Re-encoder</a> <br> Version: <a href="https://github.com/JinPots/Facebook60FPS-Re-Encoder/releases/latest" target="_blank">1.1.0</a> </p>
+            <p>For output it's your Videos folder, only select button work for selecting path</p>
+            <div id="info-box">
+                <p> Creator: <a href="https://jinpots.space" target="_blank">JinPots</a></p>
+                <p>UI Designer: <a href="https://github.com/skyventuree" target="_blank">skyventuree (sorae_42)</a></p>  
+                <p> Github: <a href="https://github.com/JinPots/Facebook60FPS-Re-Encoder" target="_blank">Facebook 60FPS Re-encoder</a></p>
+                <p>Version: <a href="https://github.com/JinPots/Facebook60FPS-Re-Encoder/releases/latest" target="_blank">1.1.0</a></p>
             </div> 
         </div>
         <!-- <button id="info" >INFO<i class="fa fa-info-circle"></i></button> -->

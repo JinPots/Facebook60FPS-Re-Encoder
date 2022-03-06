@@ -33,16 +33,19 @@ function openVideosFolder() {
 	window.backend.send('openVideosFolder', null)
 }
 
-let file = document.querySelector('#file-select > input')
-
 document.querySelector('#submit').addEventListener('click', () => {
-	if (file.files.length <= 0) {
+	if (document.querySelector('#file-select > input').files.length <= 0) {
 		document.querySelector('#file-select > div > p').classList.add('shake')
 		setTimeout(() => {
 			document.querySelector('#file-select > div > p').classList.remove('shake')
 		}, 550)
 	}
 })
+
+// Set new display value on the "p" element on file change.
+function newDispValue() {
+	document.querySelector("#file-select > div > p").innerText = document.querySelector('#file-select > input').files[0].name;
+}
 
 document.getElementById('settingsb').addEventListener('click', () => {
 	const box = document.getElementById('settings')
@@ -67,7 +70,6 @@ async function selectDirs (event) {
 window.backend.receive('config', (config) => {
 	console.log(config)
 })
-
 
 function videoNameSubmit (event) {
 	event.preventDefault()
