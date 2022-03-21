@@ -10,9 +10,11 @@ let ffmpeg = global.ffmpeg,
 	ffmpegProcess,
 	win = global.win,
 	log = global.log,
-	videoOutputPath = global.videoOutputPath
+	store = global.store
 
 module.exports.startRender = async function (arg) {
+	log.info(arg)
+	const videoOutputPath = store.get('path', `${process.env.USERPROFILE}\\Videos\\`)
 	let args = []
 
 	let fileSelect = arg.fileSelect
@@ -28,38 +30,44 @@ module.exports.startRender = async function (arg) {
 	} else if (arg.encoder === 'amd') {
 		args.push('-c:v', 'h264_amf')
 	}
-	args.push('-qp', '29')
-	args.push('-crf', '15')
+	args.push('-qp', arg.qp)
+	args.push('-crf', arg.crf)
 	args.push('-preset', arg.preset)
 	args.push('-c:a', arg.audio)
 	let bitrate = (arg.bitrate / 1000).toFixed(1) + 'M'
 	args.push('-b:v', bitrate)
 	args.push('-pix_fmt', arg.pixel.toLowerCase())
-	args.push('-rc-lookahead', '15')
+	args.push('-rc-lookahead', arg['rc-lookahead'])
 	args.push('-vf', `scale=-1:${arg.resolution.split(/ +/).join('')}`)
 	args.push(videoOutputPath + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
 	args.push('-y')
 	let currentTime = process.hrtime()
 	console.log(ffmpeg + args.join(' '))
-	ffmpegProcess = spawn(ffmpeg, args)
-	ffmpegProcess.stdout.setEncoding('utf8')
-	ffmpegProcess.stderr.setEncoding('utf8')
-	ffmpegProcess.stdout.on('data', (data) => {
-		log.info(data)
+	ffmpegProcess = spawn(ffmpeg, args, {
+		detached: true,
+		stdio: 'inherit'
 	})
-	ffmpegProcess.stdout.on('close', (data, error) => {
-		if (error) {
-			console.error(`exec error: ${error}`)
+
+	ffmpegProcess.on('close', (code) => {
+		log.info('FFmpeg exited with code ' + code)
+		if (code == 0) {
+			let tempTime = process.hrtime(currentTime)
+			let eplasedTime = (((tempTime[0] * 1000) + (tempTime[1] / 1000000)) / 1000).toFixed(2)
+			win.webContents.send('render-finish', (eplasedTime))
+			shell.showItemInFolder(videoOutputPath + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+			new Notification({
+				title: 'Render finished!',
+				body: 'Render time: ' + eplasedTime + 's'
+			}).show()
+			log.info('Render finished!', 'Render time: ' + eplasedTime + 's')
+		} else {
+			log.info('Render failed!')
+			win.webContents.send('render-finish', ('error'))
+			new Notification({
+				title: 'An error occured!',
+				body: 'FFmpeg exited with code ' + code
+			}).show()
 		}
-		let tempTime = process.hrtime(currentTime)
-		let eplasedTime = (((tempTime[0] * 1000) + (tempTime[1] / 1000000)) / 1000).toFixed(2)
-		win.webContents.send('render-finish', (eplasedTime))
-		shell.showItemInFolder(videoOutputPath + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
-		new Notification({
-			title: 'Render finished!',
-			body: 'Render time: ' + eplasedTime + 's'
-		}).show()
-		log.info('Render finished!', 'Render time: ' + eplasedTime + 's')
 	})
 }
 

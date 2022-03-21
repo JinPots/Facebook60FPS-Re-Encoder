@@ -81,6 +81,9 @@ app.whenReady().then(async () => {
 })
 
 
+ipcMain.on('toMain', (event, data) => {
+	log.info(data)
+})
 ipcMain.on('render', async (event, args) => {
 	const { startRender } = require('./js/modules')
 	await startRender(args, event)
@@ -105,9 +108,4 @@ ipcMain.on('select-dirs', () => {
 		store.set('path', `${result}`)
 		sendData('select-dirs-a', (result))
 	})
-})
-
-ipcMain.on('videoNameSubmit', (data) => {
-	// log.info(data)
-	store.set('videoName', `${data}`)
 })

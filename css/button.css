@@ -12,8 +12,6 @@ button {
     transition: all 0.2s ease-in-out;
 }
 
-/* NEED FIX: border-radius got overwritten somewhere so I have to put them in each ID element. */
-
 #submit, #settingsb {
     width: 100px;
     bottom: 0;
@@ -47,3 +45,53 @@ button:active {
     transform: scale(0.9);
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
+
+#errorClose {
+    left: 66vw;
+    border-radius: 50px;
+}
+
+#advButton {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    height: 3vw;
+    border-radius: 10px;
+    background-color: #2f2f2f;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+
+#advButton:hover {
+    transform: scale(1.1);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+#advButton:active {
+    transform: scale(0.9);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+#advButton:before, #advButton:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 3px solid #2f2f2f;
+    top: -3px;
+    left: 5px;
+}
+
+#advButton:before {
+    transform: rotate(135deg);
+}
+
+#advButton:after {
+    transform: rotate(-135deg);
+}
+

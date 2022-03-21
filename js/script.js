@@ -23,9 +23,20 @@ function startRender(event) {
 
 	window.backend.send('render', formData)
 
+	window.backend.receive('render-progress', (data) => {
+		console.log(data)
+	})
 	window.backend.receive('render-finish', (eplasedTime) => {
-		progress.innerText = `Render finished in ${eplasedTime} seconds!`
-		progress.style.color = '#00ff00'
+		if (eplasedTime === 'error') {
+			const errorBox = document.getElementById('error')
+			errorBox.style.visibility = 'visible'
+
+			progress.style.color = 'red'
+			progress.innerHTML = '<i class="fa fa-exclamation-triangle"></i> An error occured.'
+		} else {
+			progress.innerText = `Render finished in ${eplasedTime} seconds!`
+			progress.style.color = '#00ff00'
+		}
 	})
 }
 
@@ -33,30 +44,36 @@ function openVideosFolder() {
 	window.backend.send('openVideosFolder', null)
 }
 
-document.querySelector('#submit').addEventListener('click', () => {
-	if (document.querySelector('#file-select > input').files.length <= 0) {
-		document.querySelector('#file-select > div > p').classList.add('shake')
-		setTimeout(() => {
-			document.querySelector('#file-select > div > p').classList.remove('shake')
-		}, 550)
-	}
-})
+let sbb = document.querySelector('#submit')
+if (sbb) {
+	sbb.addEventListener('click', () => {
+		if (document.querySelector('#file-select > input').files.length <= 0) {
+			document.querySelector('#file-select > div > p').classList.add('shake')
+			setTimeout(() => {
+				document.querySelector('#file-select > div > p').classList.remove('shake')
+			}, 550)
+		}
+	})
+}
 
 // Set new display value on the "p" element on file change.
 function newDispValue() {
-	document.querySelector("#file-select > div > p").innerText = document.querySelector('#file-select > input').files[0].name;
+	document.querySelector('#file-select > div > p').innerText = document.querySelector('#file-select > input').files[0].name
 }
 
-document.getElementById('settingsb').addEventListener('click', () => {
-	const box = document.getElementById('settings')
-	if (box.style.visibility == 'hidden') {
-		box.style.visibility = 'visible'
-	} else {
-		box.style.visibility = 'hidden'
-	}
-})
+let stbb = document.getElementById('settingsb')
+if (stbb) {
+	stbb.addEventListener('click', () => {
+		const box = document.getElementById('settings')
+		if (box.style.visibility == 'hidden') {
+			box.style.visibility = 'visible'
+		} else {
+			box.style.visibility = 'hidden'
+		}
+	})
+}
 
-async function selectDirs (event) {
+async function selectDirs(event) {
 	event.preventDefault()
 	window.backend.send('select-dirs', (event))
 
@@ -67,17 +84,14 @@ async function selectDirs (event) {
 	})
 }
 
-window.backend.receive('config', (config) => {
-	console.log(config)
-})
 
-function videoNameSubmit (event) {
+function videoNameSubmit(event) {
 	event.preventDefault()
 	const videoName1 = document.getElementById('videoName').getAttribute('value')
 	console.log(videoName1)
 	window.backend.send('videoNameSubmit', (videoName1))
 }
 
-function openLink (url) {
+function openLink(url) {
 	window.location.href = url
 }

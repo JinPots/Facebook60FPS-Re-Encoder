@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400&display=swap');
+
 #file-select, #encode-options {
     width: 50%;
     padding: 10px;
@@ -79,14 +81,15 @@
 }
 
 #encode-options>div>input, #encode-options>div>select {
-    width: 100%;
     height: 30px;
+    width: 100%;
     border: 0;
     border-bottom: 2px solid rgb(0, 191, 255);
     background-color: transparent;
     padding: 0 5px;
     outline: none;
 }
+
 
 /* Shake animation for everything */
 .shake {
@@ -150,4 +153,48 @@
     html {
         filter: invert(100%);
     }
+}
+
+#error {
+    visibility: hidden;
+    position: absolute;
+    left: 17vw;
+    top: 5vw;
+    width: 69vw;
+    height: 23vh auto;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 400;
+    padding-left: 1vw;
+    padding-top: 1vw;
+}
+
+#adv {
+    visibility: hidden   ;
+    position: absolute;
+    top: 5vw;
+    left: 50.5vw;
+    width: 49vw;
+    height: 50vh;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 10px;
+    z-index: 100;
+    display: flex;
+    padding-left: 1vw;
+    padding-top: 1vw;
+}
+#adv-encode-options>div>input, #adv-encode-options>div>select {
+    height: 30px;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid rgb(0, 191, 255);
+    background-color: transparent;
+    padding: 0 5px;
+    outline: none;
 }
