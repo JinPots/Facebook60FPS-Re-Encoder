@@ -60,10 +60,13 @@ function createWindow() {
 		win.removeMenu()
 	}
 	win.loadFile('web/index.html')
+	win.webContents.on('new-window', function(e, url) {
+		e.preventDefault();
+		require('electron').shell.openExternal(url);
+	})
 	autoUpdater.checkForUpdatesAndNotify()
 	global.win = win
 }
-
 
 
 app.whenReady().then(async () => {
@@ -84,6 +87,7 @@ app.whenReady().then(async () => {
 ipcMain.on('toMain', (event, data) => {
 	log.info(data)
 })
+
 ipcMain.on('render', async (event, args) => {
 	const { startRender } = require('./js/modules')
 	await startRender(args, event)
