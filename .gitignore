@@ -3,3 +3,4 @@ dist
 test.js
 .eslintrc.json
 electron-builder.env
+.DS_Store
