@@ -26,7 +26,9 @@
     "win": {
       "icon": "./assets/icon.ico",
       "publisherName": "JinPots",
-      "publish": ["github"],
+      "publish": [
+        "github"
+      ],
       "target": [
         "nsis",
         "portable"
@@ -40,7 +42,9 @@
         "AppImage",
         "tar.gz"
       ],
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "nsis": {
       "oneClick": false,
@@ -50,7 +54,8 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     },
-    "publish": [{
+    "publish": [
+      {
         "provider": "github",
         "repo": "Facebook60FPS-Re-Encoder",
         "owner": "jinpots",
@@ -59,7 +64,8 @@
         "releaseType": "release",
         "channel": "latest",
         "protocol": "https"
-      }]
+      }
+    ]
   },
   "devDependencies": {
     "electron": "^17.1.0",

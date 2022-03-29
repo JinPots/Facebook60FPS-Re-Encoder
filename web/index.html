@@ -8,204 +8,164 @@
     <title>Facebook 60FPS Re-encoder</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/button.css">
+    <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="../js/script.js"></script>
-
 
     <!-- Import progress bar from boostrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-        </script>
+    </script>
 
 </head>
 
 <body>
-    <!-- The main app -->
-    <div id="app" class="a">
-        <form onsubmit="startRender(event)" name="ipcForm">
-            <div id="file-select">
-                <input type="file" class="fileSelect" accept="video/*" capture="camera" onchange="newDispValue()"
-                    required>
-                <div>
-                    <p>Click to add video</p>
-                    <i class="fa fa-plus-circle fa-5x"></i>
+    <base target="_blank" rel="noopener noreferrer">
+    <form onsubmit="startRender(event)" name="ipcForm">
+        <div id="file-select">
+            <input type="file" class="fileSelect" accept="video/*" capture="camera" onchange="addVideo()" required>
+            <i class="fa fa-plus-square-o"></i>
+            <p>Click or Drag and Drop to add video</p>
+        </div>
+        <div id="backdrop">
+            <div id="config-wrapper">
+                <div id="config-guide">
+                    <p>You can change some FFmpeg settings here.</p>
+                    <div id="preview">
+                        <p>undefined</p>
+                    </div>
+                    <div id="options">
+                        <button onclick="cancelVideo()"><i class="fa fa-times"></i>Cancel</button>
+                        <button type="submit">Start<i class="fa fa-angle-right fa-2x"></i></button>
+                    </div>
                 </div>
-            </div>
+                <div id="config">
+                    <h2>Basic Settings</h2>
+                    <div id="basic">
+                        <label for="bitrate">Bitrate</label>
+                        <input type="number" id="bitrate" min="0" max="1900" value="1500">
+                        <br>
+    
+                        <label for="resolution">Resolution</label> <br>
+                        <select id="resolution" onchange="resolutionChange()">
+                            <option value="720">720p</option>
+                            <option value="1080">1080p</option>
+                        </select>
+                        <br>
+    
+                        <label for="audio">Audio</label> <br>
+                        <select id="audio">
+                            <option value="aac">AAC</option>
+                            <option value="mp3">MP3</option>
+                            <option value="opus">Opus</option>
+                        </select>
+                        <br>
+    
+                        <label for="render">Render with</label>
+                        <select id="encoder">
+                            <option value="cpu">CPU</option>
+                            <option value="nvidia">Nvidia GPU</option>
+                            <option value="amd">AMD GPU</option>
+                            <option value="intel">Intel GPU</option>
+                        </select>
+                        <br>
 
-            <!-- Line -->
-            <div id="vertical-line"></div>
-            <div id="encode-options">
-                <div class="bitrate-settings">
-                    <label for="bitrate">Bitrate</label> <br>
-                    <input type="number" id="bitrate" min="0" max="1900" value="1500">
-                </div>
+                        <label for="path">Output path</label>
+                        <input type="text" name="path" id="pathSettings" onclick="selectDirs(event)" placeholder="Default to your Videos folder">
+                    </div>
 
-                <!-- Choose what to render with (CPU, Nvidia GPU, AMD GPU, Intel GPU) -->
-                <div class="render-settings">
-                    <label for="render">Render with</label> <br>
-                    <select id="encoder">
-                        <option value="cpu">CPU</option>
-                        <option value="nvidia">Nvidia GPU</option>
-                        <option value="amd">AMD GPU</option>
-                        <option value="intel">Intel GPU</option>
-                    </select>
-                </div>
-                <!-- Manual render preset, default: slow -->
-                <div class="render-preset">
-                    <label for="preset">Preset</label> <br>
-                    <input type="text" id="preset" value="slow"><br>
-                </div>
-                <div id="render-profile">
-                    <label for="profile">Profile</label> <br>
-                    <input type="text" id="profile" value="high">
-                </div>
-                <!-- Audio settings -->
-                <div class="audio-settings">
-                    <label for="audio">Audio</label> <br>
-                    <select id="audio">
-                        <option value="aac">AAC</option>
-                        <option value="mp3">MP3</option>
-                        <option value="opus">Opus</option>
-                    </select>
-                </div>
-                <!-- Resolution, only 720p and 1080p -->
-                <div class="resolution-settings">
-                    <label for="resolution">Resolution</label> <br>
-                    <select id="resolution" onchange="resolutionChange()">
-                        <option value="720">720p</option>
-                        <option value="1080">1080p</option>
-                    </select>
-                </div>
-                <!-- Pixel formats -->
-                <div class="pixel-settings">
-                    <label for="pixel">Pixel format</label> <br>
-                    <select id="pixel">
-                        <option value="yuv420p">YUV420P</option>
-                        <option value="yuv420p10le">YUV420P10LE</option>
-                        <option value="yuv420p12le">YUV420P12LE</option>
-                        <option value="yuv420p16le">YUV420P16LE</option>
-                        <option value="yuv422p">YUV422P</option>
-                        <option value="yuv422p10le">YUV422P10LE</option>
-                        <option value="yuv422p12le">YUV422P12LE</option>
-                        <option value="yuv422p16le">YUV422P16LE</option>
-                        <option value="yuv444p">YUV444P</option>
-                        <option value="yuv444p10le">YUV444P10LE</option>
-                        <option value="yuv444p12le">YUV444P12LE</option>
-                        <option value="yuv444p16le">YUV444P16LE</option>
-                        <option value="yuv420p9be">YUV420P9BE</option>
-                        <option value="yuv420p9le">YUV420P9LE</option>
-                        <option value="yuv420p10be">YUV420P10BE</option>
-                        <option value="yuv420p10le">YUV420P10LE</option>
-                        <option value="yuv420p16be">YUV420P16BE</option>
-                        <option value="yuv420p16le">YUV420P16LE</option>
-                        <option value="yuv422p9be">YUV422P9BE</option>
-                        <option value="yuv422p9le">YUV422P9LE</option>
-                        <option value="yuv422p10be">YUV422P10BE</option>
-                        <option value="yuv422p10le">YUV422P10LE</option>
-                        <option value="yuv422p16be">YUV422P16BE</option>
-                        <option value="yuv422p16le">YUV422P16LE</option>
-                        <option value="yuv444p9be">YUV444P9BE</option>
-                    </select>
-                </div>
-                <div id="progress">Please select a video and click start!</div>
-            </div>
-            <div id="adv">
-                <div id="adv-encode-options">
-                    <div id="crf-settings">
+                    <hr>
+                    <div id="advance-btn" onclick="toggleRibbon()">
+                        <h2>Advanced Settings</h2>
+                        <i class="fa fa-angle-down fa-2x"></i>
+                    </div>
+                    <div id="advanced" style="display:none"> <!-- Hidden by default -->
+                        <p style="color:red">You shouldn't touch the option you don't know what it will do.</p>
+                        <label for="preset">Preset</label>
+                        <input type="text" id="preset" value="slow">
+                        <br>
+    
+                        <label for="profile">Profile</label>
+                        <input type="text" id="profile" value="high">
+                        <br>
+    
+                        <label for="pixel">Pixel format</label> <br>
+                        <select id="pixel">
+                            <option value="yuv420p">YUV420P</option>
+                            <option value="yuv420p10le">YUV420P10LE</option>
+                            <option value="yuv420p12le">YUV420P12LE</option>
+                            <option value="yuv420p16le">YUV420P16LE</option>
+                            <option value="yuv422p">YUV422P</option>
+                            <option value="yuv422p10le">YUV422P10LE</option>
+                            <option value="yuv422p12le">YUV422P12LE</option>
+                            <option value="yuv422p16le">YUV422P16LE</option>
+                            <option value="yuv444p">YUV444P</option>
+                            <option value="yuv444p10le">YUV444P10LE</option>
+                            <option value="yuv444p12le">YUV444P12LE</option>
+                            <option value="yuv444p16le">YUV444P16LE</option>
+                            <option value="yuv420p9be">YUV420P9BE</option>
+                            <option value="yuv420p9le">YUV420P9LE</option>
+                            <option value="yuv420p10be">YUV420P10BE</option>
+                            <option value="yuv420p10le">YUV420P10LE</option>
+                            <option value="yuv420p16be">YUV420P16BE</option>
+                            <option value="yuv420p16le">YUV420P16LE</option>
+                            <option value="yuv422p9be">YUV422P9BE</option>
+                            <option value="yuv422p9le">YUV422P9LE</option>
+                            <option value="yuv422p10be">YUV422P10BE</option>
+                            <option value="yuv422p10le">YUV422P10LE</option>
+                            <option value="yuv422p16be">YUV422P16BE</option>
+                            <option value="yuv422p16le">YUV422P16LE</option>
+                            <option value="yuv444p9be">YUV444P9BE</option>
+                        </select>
+                        <br>
+    
                         <label for="crf">Constant Rate Factor (CRF)</label> <br>
                         <input type="number" id="crf" min="0" max="51" value="8">
-                    </div> 
-                    <div id="qp-settings">
+                        <br>
+    
                         <label for="qp">Quantization Parameter (QP)</label> <br>
                         <input type="number" id="qp" min="0" max="51" value="21">
-                    </div>
-                    <div id="rc-lookahead-settings">
+                        <br>
+                        
                         <label for="rc-lookahead">Rate Control Lookahead (RC Lookahead)</label> <br>
                         <input type="number" id="rc-lookahead" min="0" max="100" value="15">
                     </div>
                 </div>
             </div>
-            <button id="submit">START<i class="fa fa-arrow-right"></i></button>
-        </form>
-        <button id="advButton" onclick="advSettings()">Advanced Settings</button>
-        <button id="settingsb">SETTINGS<i class="fa fa-gear"></i></button>
-        <div id="error">
-            <button id="errorClose" onclick="random1()">X</button>
-            <p>
-                If you are seeing this message, please make sure you have the latest version of your graphics card
-                driver <br> and you chose the right encoder (CPU, GPU). Make sure the preset and profile are correct.
-                <br><br>
-
-                For linux users: <br>
-                If you are using a Nvidia GPU, please make sure you have the latest version of the nvidia-settings
-                package. <br>
-                If you are using an Intel/AMD GPU, please make sure you have the latest version of the xorg-server-x11
-                package. <br>
-                <br>
-                On Windows, please make sure you have the latest version of your graphics card driver. <br>
-                <br>
-                If you are still seeing this message, please contact the developer on Discord: JinPots#5710
-
-            </p>
         </div>
-        <div id="settings">
-            <input type="text" name="path" id="pathSettings"
-                value="Nothing here but path will be Default but if u already set then it'll be that">
-            <label for="path">Video output path</label> <button id="settingsb1"
-                onclick="selectDirs(event)">Select</button>
-            <p>For output it's your Videos folder, only select button work for selecting path</p>
-            <div id="info-box">
-                <p> Creator: <a href="https://jinpots.space" target="_blank">JinPots</a></p>
-                <p>UI Designer: <a href="https://github.com/skyventuree" target="_blank">skyventuree (sorae_42)</a></p>
-                <p> Github: <a href="https://github.com/JinPots/Facebook60FPS-Re-Encoder" target="_blank">Facebook 60FPS
-                        Re-encoder</a></p>
-                <p>Version: <a href="https://github.com/JinPots/Facebook60FPS-Re-Encoder/releases/latest"
-                        target="_blank">1.1.0</a></p>
-            </div>
-        </div>
-        <script>
-            const resolutionChange = () => {
-                const resolution = document.getElementById("resolution").value;
-                if (resolution === "720") {
-                    document.getElementById("qp").value = 24;
-                    document.getElementById("crf").value = 8;
-                } else if (resolution === "1080") {
-                    document.getElementById("qp").value = 21;
-                    document.getElementById("crf").value = 5;
-                }
-            }
+    </form>
 
-            const errorBox = document.getElementById('error');
-            const random1 = function () {
-                if (errorBox.style.visibility == 'visible') {
-                    errorBox.style.visibility = 'hidden';
-                } else {
-                    errorBox.style.visibility = 'visible';
-                }
-            }
-            const advSettingsBox = document.getElementById('adv');
-            const advButton = document.getElementById('advButton');
-            const advSettings = function () {
-                if (advSettingsBox.style.visibility == 'visible') {
-                    advSettingsBox.style.visibility = 'hidden';
-                    advButton.innerText = 'Advanced Settings';
-                } else {
-                    advSettingsBox.style.visibility = 'visible';
-                    advButton.innerText = 'Hide Advanced Settings';
-                }
-            }
-            window.backend.loadscript('./js/script.js')
-            window.backend.send('toMain', 'yo!')
-            window.backend.receive('config', function (data) {
-                document.getElementById('pathSettings').value = data.path;
-            })
-            console.log("Loaded scripts");
-        </script>
+    <div id="error-dialog">
+        <i class="fa fa-exclamation-triangle fa-5x"></i>
+        <h2>Oops! Something happened.</h2>
+        <p>Please make sure you have the latest version of your graphics card driver and the encoder options are correct.</p>
+        <p>If you are a Linux user, make sure you installed the appropriate and lastest GPU driver.</p>
+        <br>
+        <p>If this problem still presist, please contact JinPots#5710 through Discord.</p>
+        <button id="errorClose" onclick="document.querySelector('#error-dialog').style.display='none'">OK</button>
+    </div>
+
+    <div id="progress">
+        <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
+        <h2>Rendering...</h2>
+        <div id="summary">
+            <p>TEXT_TIME_ELAPSED</p>
+            <button style="height:100%" onclick="cancelVideo()">Done</button>
+        </div>
+    </div>
+
+    <div id="credit">
+        <p>v1.3</p>
+        <p>Made by <a href="https://jinpots.space">JinPots</a>. UI Design by <a href="https://skyventuree.github.io">shigukk</a>.</p>
+    </div>
+
+    <!-- Load JS after all the DOM is loaded -->
+    <script src="../js/main.js"></script>
+    <script src="../js/render.js"></script>
 </body>
 
 </html>
