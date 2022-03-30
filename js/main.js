@@ -82,6 +82,7 @@ function cancelVideo() {
 	document.querySelector("#progress > i").classList.add('fa-spin')
 	document.querySelector("#progress > h2").innerHTML = 'Rendering...'
 	document.querySelector("#summary").style.display = 'none'
+	document.querySelector("#progress-log").value = ''
 }
 
 // aka toggle advanced settings
@@ -92,4 +93,13 @@ function toggleRibbon() {
 		return
 	}
 	advancedSetings.style.display = 'none'
+}
+
+function showLog() {
+	const log = document.querySelector("#progress-log");
+	if (log.style.display == 'none') {
+		log.style.display = 'block'
+		return;
+	}
+	log.style.display = 'none'
 }
