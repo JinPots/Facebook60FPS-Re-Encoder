@@ -4,23 +4,25 @@ const {
 	Notification
 } = require('electron')
 const {
-	spawn
+	spawn,
+	exec
 } = require('child_process')
 let ffmpeg = global.ffmpeg,
 	ffmpegProcess,
 	win = global.win,
 	log = global.log,
-	store = global.store
+	store = global.store,
+	ffmpegPackage = global.ffmpegPackage 
 
 module.exports.startRender = async function (arg) {
 	log.info(arg)
-	const videoOutputPath = store.get('path', `${process.env.USERPROFILE}\\Videos\\`)
+	let videoOutputPath = store.get('path', `${process.env.USERPROFILE}\\Videos\\`)
 	let args = []
 
 	let fileSelect = arg.fileSelect
 	let fileName = arg.fileSelect_name.split('.')[0]
 
-	args.push('-i', `${fileSelect.split(/ +/).join('\\ ')}`)
+	args.push('-i', `${fileSelect.replaceAll('/', '\\\\')}`)
 	if (arg.encoder === 'cpu') {
 		args.push('-c:v', 'libx264')
 	} else if (arg.encoder === 'nvidia') {
@@ -39,15 +41,40 @@ module.exports.startRender = async function (arg) {
 	args.push('-pix_fmt', arg.pixel.toLowerCase())
 	args.push('-rc-lookahead', arg['rc-lookahead'])
 	args.push('-vf', `scale=-1:${arg.resolution.split(/ +/).join('')}`)
-	args.push(videoOutputPath + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+	if (process.platform !== 'win32') {
+		if (arg.pathSettings) {
+			args.push((arg.pathSettings).replaceAll('/', '\\') + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+		} else {
+			args.push((videoOutputPath).replaceAll('/', '\\') + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+		}
+	} else {
+		if (arg.pathSettings) {
+			args.push(arg.pathSettings + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+		} else {
+			args.push(videoOutputPath + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+		}
+	}
 	args.push('-y')
 	let currentTime = process.hrtime()
 	console.log(ffmpeg + args.join(' '))
-	ffmpegProcess = spawn(ffmpeg, args, {
-		detached: true,
-		stdio: 'inherit'
-	})
 
+	if (ffmpegPackage == true) {
+		ffmpegProcess = spawn(ffmpeg, args, {
+			detached: true,
+			stdio: 'inherit'
+		})
+	} else {
+		log.info('a')
+		ffmpegProcess = exec(`ffmpeg ${args.join(' ')}`) 
+	}
+
+	ffmpegProcess.stderr.on('data', (data) => {
+
+		win.webContents.send('render-progress', {
+			data,
+			time: process.hrtime(currentTime)[0]
+		})
+	})
 	ffmpegProcess.on('close', (code) => {
 		log.info('FFmpeg exited with code ' + code)
 		if (code == 0) {

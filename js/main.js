@@ -27,11 +27,11 @@ async function selectDirs(event) {
 	event.preventDefault()
 	window.backend.send('select-dirs', (event))
 	window.backend.receive('select-dirs-a', (data) => {
-		if (data == "undefined") return;
+		if (data == 'undefined') return
 		console.log(data)
 		document.getElementById('pathSettings').setAttribute('value', data || '')
 	})
-	document.getElementById('pathSettings').blur();
+	document.getElementById('pathSettings').blur()
 }
 
 function videoNameSubmit(event) {
@@ -42,46 +42,46 @@ function videoNameSubmit(event) {
 }
 
 const resolutionChange = () => {
-	const resolution = document.getElementById("resolution").value;
-	if (resolution === "720") {
-		document.getElementById("qp").value = 24;
-		document.getElementById("crf").value = 8;
-	} else if (resolution === "1080") {
-		document.getElementById("qp").value = 21;
-		document.getElementById("crf").value = 5;
+	const resolution = document.getElementById('resolution').value
+	if (resolution === '720') {
+		document.getElementById('qp').value = 24
+		document.getElementById('crf').value = 8
+	} else if (resolution === '1080') {
+		document.getElementById('qp').value = 21
+		document.getElementById('crf').value = 5
 	}
 }
 
 function addVideo() {
-	document.querySelector("#backdrop").classList.add("active");
-	document.querySelector("#credit").style.color = "white";
-	document.querySelectorAll("#credit>p>a").forEach(function(e) {
-		e.style.color = "lightblue";
-	});
+	document.querySelector('#backdrop').classList.add('active')
+	document.querySelector('#credit').style.color = 'white'
+	document.querySelectorAll('#credit>p>a').forEach(function(e) {
+		e.style.color = 'lightblue'
+	})
 	
 	// set title
-	const video = document.querySelector('#file-select > input');
-	document.querySelector("#preview > p").innerHTML = "File selected: " + video.files[0].name;
+	const video = document.querySelector('#file-select > input')
+	document.querySelector('#preview > p').innerHTML = 'File selected: ' + video.files[0].name
 }
 
 function cancelVideo() {
-	document.querySelector("#backdrop").classList.remove("active");
-	document.querySelector("#credit").style.color = "black";
-	document.querySelectorAll("#credit>p>a").forEach(function(e) {
-		e.style.color = "#007bff";
-	});
-	document.querySelector('#advanced').style.display = 'none';
-	document.querySelector('#file-select > input').value = '';
+	document.querySelector('#backdrop').classList.remove('active')
+	document.querySelector('#credit').style.color = 'black'
+	document.querySelectorAll('#credit>p>a').forEach(function(e) {
+		e.style.color = '#007bff'
+	})
+	document.querySelector('#advanced').style.display = 'none'
+	document.querySelector('#file-select > input').value = ''
 	document.getElementById('pathSettings').setAttribute('value', '')
-	document.querySelector("#progress").style.display = "none";
+	document.querySelector('#progress').style.display = 'none'
 }
 
 // aka toggle advanced settings
 function toggleRibbon() {
-	const advancedSetings = document.querySelector('#advanced');
+	const advancedSetings = document.querySelector('#advanced')
 	if (advancedSetings.style.display == 'none') {
-		advancedSetings.style.display = 'block';
-		return;
+		advancedSetings.style.display = 'block'
+		return
 	}
-	advancedSetings.style.display = 'none';
+	advancedSetings.style.display = 'none'
 }
