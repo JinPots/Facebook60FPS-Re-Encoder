@@ -142,8 +142,14 @@
     <div id="error-dialog">
         <i class="fa fa-exclamation-triangle fa-5x"></i>
         <h2>Oops! Something happened.</h2>
-        <p>Please make sure you have the latest version of your graphics card driver and the encoder options are correct.</p>
-        <p>If you are a Linux user, make sure you installed the appropriate and lastest GPU driver.</p>
+        <p>Some possible cause of this maybe:
+            <ul>
+                <li>The GPU driver isn't updated to the lastest version.</li>
+                <li>Your encoder options is incorrect. (Try double-check your Advanced Settings options.)</li>
+                <li>FFmpeg returned an ENOENT error. (Usually happen on macOS at the moment. It's on our radar right now.)</li>
+            </ul>
+        </p>
+        <p>Try resolve the issue(s) then try again.</p>
         <br>
         <p>If this problem still presist, please contact JinPots#5710 through Discord.</p>
         <button id="errorClose" onclick="document.querySelector('#error-dialog').style.display='none'">OK</button>

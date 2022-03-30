@@ -58,6 +58,7 @@ module.exports.startRender = async function (arg) {
 	let currentTime = process.hrtime()
 	console.log(ffmpeg + args.join(' '))
 
+<<<<<<< HEAD
 	if (ffmpegPackage == true) {
 		ffmpegProcess = spawn(ffmpeg, args, {
 			detached: true,
@@ -75,6 +76,13 @@ module.exports.startRender = async function (arg) {
 			time: process.hrtime(currentTime)[0]
 		})
 	})
+=======
+	// avoid electron spawning a dialog just for a fucking error (it's annoying)
+	ffmpegProcess.on('error', (e) => {
+		console.log(e)
+	})
+
+>>>>>>> 710ad53a7c07578b97194b5a1b42444d3a162c51
 	ffmpegProcess.on('close', (code) => {
 		log.info('FFmpeg exited with code ' + code)
 		if (code == 0) {
@@ -87,14 +95,14 @@ module.exports.startRender = async function (arg) {
 				body: 'Render time: ' + eplasedTime + 's'
 			}).show()
 			log.info('Render finished!', 'Render time: ' + eplasedTime + 's')
-		} else {
-			log.info('Render failed!')
-			win.webContents.send('render-finish', ('error'))
-			new Notification({
-				title: 'An error occured!',
-				body: 'FFmpeg exited with code ' + code
-			}).show()
-		}
+			return;
+		} 
+		log.info('Render failed!')
+		win.webContents.send('render-finish', ('error'))
+		new Notification({
+			title: 'An error occured!',
+			body: 'FFmpeg exited with code ' + code
+		}).show()
 	})
 }
 

@@ -33,9 +33,14 @@ function startRender(event) {
 	window.backend.receive('render-finish', (eplasedTime) => {
 		if (eplasedTime === 'error') {
 			const errorBox = document.getElementById('error-dialog')
+<<<<<<< HEAD
 			errorBox.style.display = 'flex'
 			progress.style.display = 'none'
 			progress.innerHTML = '<i class="fa fa-exclamation-triangle"></i>'
+=======
+			errorBox.style.display = 'flex';
+			progress.style.display = 'none';
+>>>>>>> 710ad53a7c07578b97194b5a1b42444d3a162c51
 		} else {
 			document.querySelector('#progress > i').classList.remove('fa-circle-o-notch')
 			document.querySelector('#progress > i').classList.remove('fa-spin')

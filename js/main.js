@@ -73,7 +73,18 @@ function cancelVideo() {
 	document.querySelector('#advanced').style.display = 'none'
 	document.querySelector('#file-select > input').value = ''
 	document.getElementById('pathSettings').setAttribute('value', '')
+<<<<<<< HEAD
 	document.querySelector('#progress').style.display = 'none'
+=======
+	document.querySelector("#progress").style.display = "none";
+
+	// reset rendering/result screen
+	document.querySelector("#progress > i").classList.remove('fa-check-circle')
+	document.querySelector("#progress > i").classList.add('fa-circle-o-notch')
+	document.querySelector("#progress > i").classList.add('fa-spin')
+	document.querySelector("#progress > h2").innerHTML = 'Rendering...'
+	document.querySelector("#summary").style.display = 'none'
+>>>>>>> 710ad53a7c07578b97194b5a1b42444d3a162c51
 }
 
 // aka toggle advanced settings
