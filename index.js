@@ -5,7 +5,7 @@ const { autoUpdater } = require('electron-updater')
 const log = require('electron-log')
 const path = require('path')
 const ffmpegPath = require('ffmpeg-static')
-
+const { exec } = require('child_process')
 
 autoUpdater.logger = log
 autoUpdater.logger.transports.file.level = 'info'
@@ -19,8 +19,20 @@ global.shell = shell
 global.app = app
 
 let appPath = app.getAppPath()
-
 global.ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked') + ' '
+
+// Check ffmpeg by executing
+const ffmpeg = exec('ffmpeg', ['-v'])
+ffmpeg.on('close', (code) => {
+	if (code === 1) {
+		log.error('FFmpeg found!')
+		global.ffmpegPackage = true
+	} else {
+		global.ffmpegPackage = true
+	}
+})
+
+	
 let win
 
 // Keep a reference for dev mode    
@@ -42,9 +54,9 @@ global.videoOutputPath = store.get('path', `${process.env.USERPROFILE}\\Videos\\
 
 function createWindow() {
 	win = new BrowserWindow({
-		width: 1200,
+		width: 1300,
 		icon: './assets/icon.ico',
-		height: 700,
+		height: 800,
 		webPreferences: {
 			// Preload script
 			preload: path.join(__dirname, 'preload.js'),
@@ -61,8 +73,8 @@ function createWindow() {
 	}
 	win.loadFile('web/index.html')
 	win.webContents.on('new-window', function(e, url) {
-		e.preventDefault();
-		require('electron').shell.openExternal(url);
+		e.preventDefault()
+		require('electron').shell.openExternal(url)
 	})
 	autoUpdater.checkForUpdatesAndNotify()
 	global.win = win
