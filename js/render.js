@@ -29,7 +29,6 @@ function startRender(event) {
 			const errorBox = document.getElementById('error-dialog')
 			errorBox.style.display = 'flex';
 			progress.style.display = 'none';
-			progress.innerHTML = '<i class="fa fa-exclamation-triangle"></i>'
 		} else {
 			document.querySelector("#progress > i").classList.remove('fa-circle-o-notch')
 			document.querySelector("#progress > i").classList.remove('fa-spin')
