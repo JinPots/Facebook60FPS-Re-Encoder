@@ -32,10 +32,11 @@ function startRender(event) {
 			progress.innerHTML = '<i class="fa fa-exclamation-triangle"></i>'
 		} else {
 			document.querySelector("#progress > i").classList.remove('fa-circle-o-notch')
+			document.querySelector("#progress > i").classList.remove('fa-spin')
 			document.querySelector("#progress > i").classList.add('fa-check-circle')
 			document.querySelector("#progress > h2").innerHTML = 'Finished!'
 			document.querySelector("#summary").style.display = 'flex'
-			document.querySelector("#summary > p") = `Render finished in ${eplasedTime} seconds!`
+			document.querySelector("#summary > p").innerHTML = `Render finished in ${eplasedTime} seconds!`
 		}
 	})
 }
