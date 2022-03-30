@@ -21,8 +21,8 @@ function startRender(event) {
 	window.backend.send('render', formData)
 
 	window.backend.receive('render-progress', (data) => {
-		// "frame=   82 fps=0.0 q=16.0 size=     256kB time=00:00:02.43 bitrate= 860.3kbits/s speed=4.42x ""
 		let logs = data.data.replace(/ +(?= )/g,'')
+		
 		const textLog = document.querySelector("#progress-log")
 		textLog.innerHTML = textLog.innerHTML + logs + '<br>'
 		textLog.scrollTop = textLog.scrollHeight
