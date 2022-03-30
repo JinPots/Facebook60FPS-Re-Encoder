@@ -21,13 +21,16 @@ global.app = app
 let appPath = app.getAppPath()
 global.ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked') + ' '
 
-// Check ffmpeg by executing
+// Check ffmpeg
 const ffmpeg = exec('ffmpeg', ['-v'])
 ffmpeg.on('close', (code) => {
 	if (code === 1) {
-		log.error('FFmpeg found!')
-		global.ffmpegPackage = true
+		exec('which ffmpeg', (e, ffmpegPath) => {
+			log.info('FFmpeg found at ' + ffmpegPath)
+		})
+		global.ffmpegPackage = false
 	} else {
+		log.warn('FFmpeg not found, using packed version. May not work on macOS.')
 		global.ffmpegPackage = true
 	}
 })

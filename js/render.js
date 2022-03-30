@@ -28,21 +28,21 @@ function startRender(event) {
 		const fps = data2[3]
 		const bitrate = data2[10].splice('birate='.length)
 		const speed = data2[11].splice('speed='.length)
-		
 	})
+
 	window.backend.receive('render-finish', (eplasedTime) => {
 		if (eplasedTime === 'error') {
 			const errorBox = document.getElementById('error-dialog')
 			errorBox.style.display = 'flex';
 			progress.style.display = 'none';
-		} else {
-			document.querySelector('#progress > i').classList.remove('fa-circle-o-notch')
-			document.querySelector('#progress > i').classList.remove('fa-spin')
-			document.querySelector('#progress > i').classList.add('fa-check-circle')
-			document.querySelector('#progress > h2').innerHTML = 'Finished!'
-			document.querySelector('#summary').style.display = 'flex'
-			document.querySelector('#summary > p').innerHTML = `Render finished in ${eplasedTime} seconds!`
+			return
 		}
+		document.querySelector('#progress > i').classList.remove('fa-circle-o-notch')
+		document.querySelector('#progress > i').classList.remove('fa-spin')
+		document.querySelector('#progress > i').classList.add('fa-check-circle')
+		document.querySelector('#progress > h2').innerHTML = 'Finished!'
+		document.querySelector('#summary').style.display = 'flex'
+		document.querySelector('#summary > p').innerHTML = `Render finished in ${eplasedTime} seconds!`
 	})
 }
 
