@@ -19,11 +19,11 @@ module.exports.startRender = async function (arg) {
 	let videoOutputPath = store.get('path', `${process.env.USERPROFILE}\\Videos\\`)
 	let args = []
 
-	let fileSelect = arg.fileSelect.replaceAll(' ', '\\ ')
+	let fileSelect = arg.fileSelect
 	let fileName = arg.fileSelect_name.split('.')[0]
 
 	if (process.platform === 'win32') {
-		args.push('-i', `${fileSelect.replaceAll('/', '\\\\')}`)
+		args.push('-i', `"${fileSelect}"`)
 	} else {
 		args.push('-i', `${fileSelect}`)
 	}
@@ -49,7 +49,7 @@ module.exports.startRender = async function (arg) {
 
 	if (process.platform !== 'win32') {
 		if (arg.pathSettings) {
-			args.push(arg.pathSettings + '/' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+			args.push(arg.pathSettings + '/' + fileName.split(/ +/).join(' ') + '_60fps.mp4')
 		} else {
 			// what does this do?
 			console.log('vid output: ' + videoOutputPath)
@@ -57,7 +57,7 @@ module.exports.startRender = async function (arg) {
 		}
 	} else {
 		if (arg.pathSettings) {
-			args.push(arg.pathSettings + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+			args.push('"' + arg.pathSettings + '\\' + fileName.split(/ +/).join(' ') + '_60fps.mp4"')
 		} else {
 			args.push(videoOutputPath + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
 		}

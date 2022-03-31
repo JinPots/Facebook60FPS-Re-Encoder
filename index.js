@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const Store = require('electron-store')
@@ -22,9 +23,9 @@ let appPath = app.getAppPath()
 global.ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked') + ' '
 
 // Check ffmpeg
-const ffmpeg = exec('ffmpeg', ['-v'])
+const ffmpeg = exec('ffmpeg version')
 ffmpeg.on('close', (code) => {
-	if (code === 1) {
+	if (code === 0) {
 		exec('which ffmpeg', (e, ffmpegPath) => {
 			log.info('FFmpeg found at ' + ffmpegPath)
 		})
