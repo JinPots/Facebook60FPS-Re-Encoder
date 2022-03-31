@@ -23,9 +23,13 @@ let appPath = app.getAppPath()
 global.ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked') + ' '
 
 // Check ffmpeg
-const ffmpeg = exec('ffmpeg version')
+const ffmpeg = exec('ffmpeg -version')
+let ffmpegOutput
+ffmpeg.stdout.on('data', (data) => {
+	log.info(data)
+})
 ffmpeg.on('close', (code) => {
-	if (code === 0) {
+	if (ffmpegOutput.startsWith('ffmpeg') || code === 0) {
 		exec('which ffmpeg', (e, ffmpegPath) => {
 			log.info('FFmpeg found at ' + ffmpegPath)
 		})
