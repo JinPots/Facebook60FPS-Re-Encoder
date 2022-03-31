@@ -1,6 +1,6 @@
 {
   "name": "facebook60fps",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "An app that re-encode your video to upload your Facebook in 60FPS!",
   "main": "index.js",
   "scripts": {

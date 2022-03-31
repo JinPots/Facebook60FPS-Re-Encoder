@@ -2,7 +2,7 @@ body {
     overflow: hidden;
 }
 
-h2, label, p, a, button {
+h2, label, p, a, button, ul, li {
     user-select: none;
 }
 
