@@ -23,7 +23,7 @@ module.exports.startRender = async function (arg) {
 	let fileName = arg.fileSelect_name.split('.')[0]
 
 	if (process.platform === 'win32') {
-		args.push('-i', `${fileSelect.replaceAll('/', '\\\\')}`)
+		args.push('-i', `"${fileSelect}"`)
 	} else {
 		args.push('-i', `${fileSelect}`)
 	}
