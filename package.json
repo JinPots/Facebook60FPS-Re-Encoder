@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder -p always -w --ia32 --x64 & electron-builder -p always -l --ia32 --x64"
+    "build": "electron-builder -p always -w --ia32 --x64",
+    "build2": "electron-builder -p always -l --ia32 --x64"
   },
   "keywords": [],
   "author": "JinPots",
