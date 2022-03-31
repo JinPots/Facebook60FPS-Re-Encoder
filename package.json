@@ -40,7 +40,9 @@
       "icon": "./assets/icon.png",
       "target": [
         "AppImage",
-        "tar.gz"
+        "tar.gz",
+        "deb",
+        "pacman"
       ],
       "publish": [
         "github"
