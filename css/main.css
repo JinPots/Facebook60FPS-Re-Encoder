@@ -2,7 +2,7 @@ body {
     overflow: hidden;
 }
 
-h2, label, p, a {
+h2, label, p, a, button {
     user-select: none;
 }
 
@@ -127,6 +127,23 @@ h2, label, p, a {
     z-index: 15;
 }
 
+#progress>#progress-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#progress>#progress-log {
+    font-family: monospace;
+    font-size: 12px;
+    width: 45%;
+    height: 50%;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    overflow-y: auto;
+}
+
 #progress>i {
     margin: 20px;
 }
@@ -146,7 +163,7 @@ h2, label, p, a {
     }
 
     p, h2, label, a, i, button, input, select {
-        color: white;
+        color: white !important;
     }
     
     #config-guide {

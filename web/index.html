@@ -146,7 +146,7 @@
             <ul>
                 <li>The GPU driver isn't updated to the lastest version.</li>
                 <li>Your encoder options is incorrect. (Try double-check your Advanced Settings options.)</li>
-                <li>FFmpeg returned an ENOENT error. (Usually happen on macOS at the moment. It's on our radar right now.)</li>
+                <li>FFmpeg returned an ENOENT error.</li>
             </ul>
         </p>
         <p>Try resolve the issue(s) then try again.</p>
@@ -158,14 +158,19 @@
     <div id="progress">
         <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
         <h2>Rendering...</h2>
+        <div id="progress-status"></div>
+        <a id="show-log-btn" onclick="showLog()">Toggle Logging <i class="fa fa-angle-down"></i></a>
+        <br>
+        <div id="progress-log" style="display:none"></div>
         <div id="summary">
+            <br>
             <p>TEXT_TIME_ELAPSED</p>
             <button style="height:100%" onclick="cancelVideo()">Done</button>
         </div>
     </div>
 
     <div id="credit">
-        <p>v1.3</p>
+        <p>v1.3.4</p>
         <p>Made by <a href="https://jinpots.space">JinPots</a>. UI Design by <a href="https://skyventuree.github.io">shigukk</a>.</p>
     </div>
 

@@ -19,10 +19,15 @@ module.exports.startRender = async function (arg) {
 	let videoOutputPath = store.get('path', `${process.env.USERPROFILE}\\Videos\\`)
 	let args = []
 
-	let fileSelect = arg.fileSelect
+	let fileSelect = arg.fileSelect.replaceAll(' ', '\\ ')
 	let fileName = arg.fileSelect_name.split('.')[0]
 
-	args.push('-i', `${fileSelect.replaceAll('/', '\\\\')}`)
+	if (process.platform === 'win32') {
+		args.push('-i', `${fileSelect.replaceAll('/', '\\\\')}`)
+	} else {
+		args.push('-i', `${fileSelect}`)
+	}
+
 	if (arg.encoder === 'cpu') {
 		args.push('-c:v', 'libx264')
 	} else if (arg.encoder === 'nvidia') {
@@ -41,11 +46,14 @@ module.exports.startRender = async function (arg) {
 	args.push('-pix_fmt', arg.pixel.toLowerCase())
 	args.push('-rc-lookahead', arg['rc-lookahead'])
 	args.push('-vf', `scale=-1:${arg.resolution.split(/ +/).join('')}`)
+
 	if (process.platform !== 'win32') {
 		if (arg.pathSettings) {
-			args.push((arg.pathSettings).replaceAll('/', '\\') + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+			args.push(arg.pathSettings + '/' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
 		} else {
-			args.push((videoOutputPath).replaceAll('/', '\\') + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
+			// what does this do?
+			console.log('vid output: ' + videoOutputPath)
+			args.push((videoOutputPath).replaceAll('/', '/') + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
 		}
 	} else {
 		if (arg.pathSettings) {
@@ -54,18 +62,18 @@ module.exports.startRender = async function (arg) {
 			args.push(videoOutputPath + '\\' + fileName.split(/ +/).join('\\ ') + '_60fps.mp4')
 		}
 	}
-	args.push('-y')
-	let currentTime = process.hrtime()
-	console.log(ffmpeg + args.join(' '))
 
-<<<<<<< HEAD
+	args.push('-y')
+
+	let currentTime = process.hrtime()
+	console.log('ffmpeg ' + args.join(' '))
+
 	if (ffmpegPackage == true) {
 		ffmpegProcess = spawn(ffmpeg, args, {
 			detached: true,
 			stdio: 'inherit'
 		})
 	} else {
-		log.info('a')
 		ffmpegProcess = exec(`ffmpeg ${args.join(' ')}`) 
 	}
 
@@ -76,13 +84,11 @@ module.exports.startRender = async function (arg) {
 			time: process.hrtime(currentTime)[0]
 		})
 	})
-=======
 	// avoid electron spawning a dialog just for a fucking error (it's annoying)
 	ffmpegProcess.on('error', (e) => {
 		console.log(e)
 	})
 
->>>>>>> 710ad53a7c07578b97194b5a1b42444d3a162c51
 	ffmpegProcess.on('close', (code) => {
 		log.info('FFmpeg exited with code ' + code)
 		if (code == 0) {
