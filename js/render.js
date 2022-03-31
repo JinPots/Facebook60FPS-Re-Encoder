@@ -16,6 +16,26 @@ function startRender(event) {
 		}
 	}
 
+	// showing error for gpu related issue
+	const gpuAval = document.querySelector("#gpu-aval");
+	const gpuSelected = elements[6].value;
+	switch (gpuSelected) {
+		case 'cpu': 
+			gpuAval.style.display = 'none';
+		case 'nvidia':
+			gpuAval.innerHTML = "NVIDIA GPU isn't available on your system.";
+			break;
+		case 'amd':
+			gpuAval.innerHTML = "AMD GPU isn't available on your system.";
+			break;
+		case 'intel':
+			gpuAval.innerHTML = "Intel GPU isn't available on your system.";
+			break;
+		default:
+			gpuAval.innerHTML = "GPU selection is invaild.";
+			break;
+	}
+
 	const progress = document.getElementById('progress')
 	progress.style.display = 'flex'
 
@@ -46,6 +66,7 @@ function startRender(event) {
 			progress.style.display = 'none'
 			return
 		}
+
 		document.querySelector('#progress > i').classList.remove('fa-circle-o-notch')
 		document.querySelector('#progress > i').classList.remove('fa-spin')
 		document.querySelector('#progress > i').classList.add('fa-check-circle')

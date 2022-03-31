@@ -68,7 +68,7 @@
                         <label for="render">Render with</label>
                         <select id="encoder">
                             <option value="cpu">CPU</option>
-                            <option value="nvidia">Nvidia GPU</option>
+                            <option value="nvidia">NVIDIA GPU</option>
                             <option value="amd">AMD GPU</option>
                             <option value="intel">Intel GPU</option>
                         </select>
@@ -145,6 +145,7 @@
         <p>Some possible cause of this maybe:
             <ul>
                 <li>The GPU driver isn't updated to the lastest version.</li>
+                <li id="gpu-aval"></li>
                 <li>Your encoder options is incorrect. (Try double-check your Advanced Settings options.)</li>
                 <li>FFmpeg returned an ENOENT error.</li>
             </ul>
@@ -170,7 +171,7 @@
     </div>
 
     <div id="credit">
-        <p>v1.3.4</p>
+        <p>v1.3.5</p>
         <p>Made by <a href="https://jinpots.space">JinPots</a>. UI Design by <a href="https://skyventuree.github.io">shigukk</a>.</p>
     </div>
 

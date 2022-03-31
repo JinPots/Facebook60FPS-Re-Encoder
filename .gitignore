@@ -4,3 +4,5 @@ test.js
 .eslintrc.json
 electron-builder.env
 .DS_Store
+compile.js
+builds/
