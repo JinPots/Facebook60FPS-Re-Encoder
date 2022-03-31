@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 function startRender(event) {
 	event.preventDefault() // stop the form from submitting
@@ -23,13 +24,13 @@ function startRender(event) {
 	window.backend.receive('render-progress', (data) => {
 		let logs = data.data.replace(/ +(?= )/g,'')
 		
-		const textLog = document.querySelector("#progress-log")
+		const textLog = document.querySelector('#progress-log')
 		textLog.innerHTML = textLog.innerHTML + logs + '<br>'
 		textLog.scrollTop = textLog.scrollHeight
 
-		const status = document.querySelector("#progress-status")
+		const status = document.querySelector('#progress-status')
 		logSplit = logs.split(' ')
-		if (!logs.startsWith('frame')) return;
+		if (!logs.startsWith('frame')) return
 		const frame = logSplit[1]
 		const fps = logSplit[2].split('=')[1]
 		const size = logSplit[5]
@@ -41,8 +42,8 @@ function startRender(event) {
 	window.backend.receive('render-finish', (eplasedTime) => {
 		if (eplasedTime === 'error') {
 			const errorBox = document.getElementById('error-dialog')
-			errorBox.style.display = 'flex';
-			progress.style.display = 'none';
+			errorBox.style.display = 'flex'
+			progress.style.display = 'none'
 			return
 		}
 		document.querySelector('#progress > i').classList.remove('fa-circle-o-notch')

@@ -74,15 +74,15 @@ function cancelVideo() {
 	document.querySelector('#advanced').style.display = 'none'
 	document.querySelector('#file-select > input').value = ''
 	document.getElementById('pathSettings').setAttribute('value', '')
-	document.querySelector("#progress").style.display = 'none';
+	document.querySelector('#progress').style.display = 'none'
 
 	// reset rendering/result screen
-	document.querySelector("#progress > i").classList.remove('fa-check-circle')
-	document.querySelector("#progress > i").classList.add('fa-circle-o-notch')
-	document.querySelector("#progress > i").classList.add('fa-spin')
-	document.querySelector("#progress > h2").innerHTML = 'Rendering...'
-	document.querySelector("#summary").style.display = 'none'
-	document.querySelector("#progress-log").value = ''
+	document.querySelector('#progress > i').classList.remove('fa-check-circle')
+	document.querySelector('#progress > i').classList.add('fa-circle-o-notch')
+	document.querySelector('#progress > i').classList.add('fa-spin')
+	document.querySelector('#progress > h2').innerHTML = 'Rendering...'
+	document.querySelector('#summary').style.display = 'none'
+	document.querySelector('#progress-log').value = ''
 }
 
 // aka toggle advanced settings
@@ -96,10 +96,10 @@ function toggleRibbon() {
 }
 
 function showLog() {
-	const log = document.querySelector("#progress-log");
+	const log = document.querySelector('#progress-log')
 	if (log.style.display == 'none') {
 		log.style.display = 'block'
-		return;
+		return
 	}
 	log.style.display = 'none'
 }

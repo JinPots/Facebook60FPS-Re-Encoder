@@ -101,7 +101,7 @@ module.exports.startRender = async function (arg) {
 				body: 'Render time: ' + eplasedTime + 's'
 			}).show()
 			log.info('Render finished!', 'Render time: ' + eplasedTime + 's')
-			return;
+			return
 		} 
 		log.info('Render failed!')
 		win.webContents.send('render-finish', ('error'))
