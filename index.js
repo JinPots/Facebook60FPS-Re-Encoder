@@ -24,7 +24,7 @@ global.ffmpeg = ffmpegPath.replace('app.asar', 'app.asar.unpacked') + ' '
 
 // Check ffmpeg
 const ffmpeg = exec('ffmpeg -version')
-let ffmpegOutput
+let ffmpegOutput = ' '
 ffmpeg.stdout.on('data', (data) => {
 	log.info(data)
 })
