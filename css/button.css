@@ -41,3 +41,9 @@ button>* {
 #error-dialog>button:hover, #summary>button:hover {
     background-color: rgb(119, 119, 119);
 }
+
+@media screen and (prefers-color-scheme: light) {
+    #config-guide>#options>*, button {
+        background-color: #E5D4EF;
+    }
+}

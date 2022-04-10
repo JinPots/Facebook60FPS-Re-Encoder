@@ -159,11 +159,28 @@ h2, label, p, a, button, ul, li {
 /* dark mode using media query*/
 @media screen and (prefers-color-scheme: dark) {
     body, #config-wrapper {
-        background-color: rgb(0, 0, 0) !important;
+        background-color: #1B2120 !important;
     }
 
     p, h2, label, a, i, button, input, select {
-        color: white !important;
+        color: #D9C6AE !important;
+    }
+    
+    #config-guide {
+        border-right: 2px solid white;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: white; 
+    }
+}
+
+@media screen and (prefers-color-scheme: light) {
+    body, #config-wrapper {
+        background-color: #D7F9F8 !important;
+    }
+
+    p, h2, label, a, i, button, input, select {
+        color: #3C312E !important;
     }
     
     #config-guide {
