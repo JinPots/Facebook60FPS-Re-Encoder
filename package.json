@@ -25,7 +25,7 @@
     "copyright": "Copyright © 2022 JinPots",
     "buildVersion": "1.1.0",
     "win": {
-      "icon": "./assets/icon.ico",
+      "icon": "./app/icon.ico",
       "publisherName": "JinPots",
       "publish": [
         "github"
@@ -38,7 +38,7 @@
     "linux": {
       "category": "Utility",
       "maintainer": "JinPots",
-      "icon": "./assets/icon.png",
+      "icon": "./app/icon.ico",
       "target": [
         "AppImage",
         "tar.gz",
