@@ -27,9 +27,10 @@ const ffmpeg = exec('ffmpeg -version')
 let ffmpegOutput = ' '
 ffmpeg.stdout.on('data', (data) => {
 	log.info(data)
+	ffmpegOutput = data
 })
 ffmpeg.on('close', (code) => {
-	if (ffmpegOutput.startsWith('ffmpeg') || code === 0) {
+	if (code === 0 || ffmpegOutput.startsWith('ffmpeg')) {
 		exec('which ffmpeg', (e, ffmpegPath) => {
 			log.info('FFmpeg found at ' + ffmpegPath)
 		})
