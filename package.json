@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder -p always -w --ia32 --x64",
+    "build": "electron-builder -p always -w --ia32 --x64 -c",
     "build2": "electron-builder -p always -l --ia32 --x64"
   },
   "keywords": [],
@@ -25,7 +25,7 @@
     "copyright": "Copyright © 2022 JinPots",
     "buildVersion": "1.1.0",
     "win": {
-      "icon": "./app/icon.ico",
+      "icon": "./app/icon.png",
       "publisherName": "JinPots",
       "publish": [
         "github"
@@ -38,7 +38,7 @@
     "linux": {
       "category": "Utility",
       "maintainer": "JinPots",
-      "icon": "./app/icon.ico",
+      "icon": "./app/icon.png",
       "target": [
         "AppImage",
         "tar.gz",
