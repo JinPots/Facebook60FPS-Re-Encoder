@@ -116,6 +116,7 @@ h2, label, p, a, button, ul, li {
 }
 
 #progress {
+    /* display: flex; */
     display: none;
     justify-content: center;
     align-items: center;

@@ -37,12 +37,12 @@ module.exports.startRender = async function (arg) {
 	} else if (arg.encoder === 'amd') {
 		args.push('-c:v', 'h264_amf')
 	}
-	args.push('-qp', arg.qp)
-	args.push('-crf', arg.crf)
+	args.push('-qp', arg.qp) 
 	args.push('-preset', arg.preset)
 	args.push('-c:a', arg.audio)
 	let bitrate = (arg.bitrate / 1000).toFixed(1) + 'M'
 	args.push('-b:v', bitrate)
+	args.push('-maxrate', bitrate)
 	args.push('-pix_fmt', arg.pixel.toLowerCase())
 	args.push('-rc-lookahead', arg['rc-lookahead'])
 	args.push('-vf', `scale=-1:${arg.resolution.split(/ +/).join('')}`)
@@ -114,4 +114,9 @@ module.exports.startRender = async function (arg) {
 
 module.exports.sendData = function (channel, args) {
 	win.webContents.send(channel, args)
+}
+
+module.exports.stopRender = function () {
+	ffmpegProcess.stdin.write('q')
+	log.info('Stopped render')
 }

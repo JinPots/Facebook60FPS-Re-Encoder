@@ -79,3 +79,8 @@ function startRender(event) {
 function openVideosFolder() {
 	window.backend.send('openVideosFolder', null)
 }
+
+
+// function stop() {
+// 	window.backend.send('stop', null)
+// }

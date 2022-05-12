@@ -134,3 +134,8 @@ ipcMain.on('select-dirs', () => {
 		sendData('select-dirs-a', (result))
 	})
 })
+
+ipcMain.on('stop', () => {
+	const { stopRender } = require('./js/modules')
+	stopRender()
+})
