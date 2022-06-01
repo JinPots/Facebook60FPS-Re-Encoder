@@ -43,7 +43,7 @@
         "AppImage",
         "tar.gz",
         "deb",
-        "pacman"  
+        "pacman"
       ],
       "publish": [
         "github"
@@ -72,6 +72,7 @@
   },
   "devDependencies": {
     "electron": "^17.1.0",
-    "eslint": "^8.10.0"
+    "eslint": "^8.10.0",
+    "electron-builder": "^23.0.3"
   }
 }
