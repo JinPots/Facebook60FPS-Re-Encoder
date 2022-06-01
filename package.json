@@ -31,7 +31,6 @@
         "github"
       ],
       "target": [
-        "nsis",
         "portable"
       ]
     },
