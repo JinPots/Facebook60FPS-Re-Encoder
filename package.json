@@ -1,11 +1,11 @@
 {
   "name": "facebook60fps",
-  "version": "1.3.6",
+  "version": "1.3.7",
   "description": "An app that re-encode your video to upload your Facebook in 60FPS!",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder -p always -w --ia32 --x64 -c",
+    "build": "electron-builder -w --ia32 --x64 -c",
     "build2": "electron-builder -p always -l --ia32 --x64 -c"
   },
   "keywords": [],
