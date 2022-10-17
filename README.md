@@ -1,3 +1,5 @@
+# THIS REPO IS OUTDATED PLEASE USE [NEW VERSION](https://github.com/JinPots/fb60fps-neutralino) 
+
 # Facebook 60FPS Re-Encoder
 ![Facebook 60FPS Re-Encoder Screenshot](assets/preview.png)
 
